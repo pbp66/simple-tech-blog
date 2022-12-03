@@ -1,30 +1,38 @@
 {
-  "name": "simple-tech-blog",
-  "version": "1.0.0",
-  "description": "a simple tech blog server",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pbp66/simple-tech-blog.git"
-  },
-  "author": "pbp66",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pbp66/simple-tech-blog/issues"
-  },
-  "homepage": "https://github.com/pbp66/simple-tech-blog#readme",
-  "dependencies": {
-    "bcrypt": "^5.1.0",
-    "connect-session-sequelize": "^7.1.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "express-handlebars": "^6.0.6",
-    "express-session": "^1.17.3",
-    "mysql2": "^2.3.3",
-    "sequelize": "^6.26.0"
-  }
+	"name": "simple-tech-blog",
+	"version": "1.0.0",
+	"description": "a simple tech blog server",
+	"type": "module",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node --experimental-modules --es-module-specifier-resolution=node server",
+		"dev": "npx nodemon server",
+		"seed": "node --experimental-modules --es-module-specifier-resolution=node seeds"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pbp66/simple-tech-blog.git"
+	},
+	"author": "pbp66",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/pbp66/simple-tech-blog/issues"
+	},
+	"homepage": "https://github.com/pbp66/simple-tech-blog#readme",
+	"dependencies": {
+		"bcrypt": "^5.1.0",
+		"connect-session-sequelize": "^7.1.5",
+		"dotenv": "^16.0.3",
+		"express": "^4.18.2",
+		"express-handlebars": "^6.0.6",
+		"express-session": "^1.17.3",
+		"mysql2": "^2.3.3",
+		"sequelize": "^6.26.0"
+	},
+	"nodemonConfig": {
+		"execMap": {
+			"js": "node --experimental-modules --es-module-specifier-resolution=node"
+		}
+	}
 }
