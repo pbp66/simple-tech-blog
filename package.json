@@ -1,0 +1,20 @@
+{
+  "name": "simple-tech-blog",
+  "version": "1.0.0",
+  "description": "a simple tech blog server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pbp66/simple-tech-blog.git"
+  },
+  "author": "pbp66",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pbp66/simple-tech-blog/issues"
+  },
+  "homepage": "https://github.com/pbp66/simple-tech-blog#readme"
+}
