@@ -8,18 +8,24 @@ import sequelize from "./config/connection";
 import SequelizeStore from "connect-session-sequelize";
 
 const app = express();
+// If the port is not specified in the .env file, use 3001.
 const PORT = process.env.PORT || 3001;
 const hbs = handlebars.create({ helpers });
 
-const sessionObject = {
-	secret: "",
-	cookie: {},
-	resave: false,
-	saveUninitialized: true,
-	store: new SequelizeStore({ db: sequelize }),
-};
-
-app.use(session.Cookie(sessionObject));
+// Have the server use a session
+app.use(
+	session.Cookie({
+		secret: "",
+		cookie: {
+			// milliseconds 3,600,000 = 1 hour;
+			maxAge: 1000 * 60 * 60;
+		},
+		resave: false,
+		rolling: true,
+		saveUninitialized: true,
+		store: new SequelizeStore({ db: sequelize }),
+	})
+);
 
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
@@ -29,7 +35,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve("./public")));
 app.use(routes);
 
-const sync = await sequelize.sync({ force: false });
+await sequelize.sync({ force: false });
+
 app.listen(PORT, () =>
 	console.log(`\nNow listening at http://localhost:${PORT}\n`)
 );
