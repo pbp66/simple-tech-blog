@@ -4,9 +4,14 @@ import sequelize from "../config/connection";
 
 class User extends Model {
 	checkPassword(pass) {
+		// Uses a synchronous method to compare if the provided password results in the same hash as the stored password
 		return bcrypt.compareSync(pass, this.password);
 	}
 }
+
+// CAN have many posts
+// CAN have many comments
+// References defined outside this model in post.js, comment.js, and postComment.js
 
 User.init(
 	{
