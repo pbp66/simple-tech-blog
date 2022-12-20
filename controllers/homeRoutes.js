@@ -1,21 +1,24 @@
 import express from "express";
 const router = new express.Router();
-import { User } from "../models";
+import { User, Post, Comment } from "../models";
 import withAuth from "../utils/auth";
 
-// Prevent non logged in users from viewing the homepage
-router.get("/", withAuth, async (req, res) => {
+// Non-logged in users may view the homepage. They may not access a dashboard, make posts, or make comments
+router.get("/", async (req, res) => {
 	try {
 		const userData = await User.findAll({
 			attributes: { exclude: ["password"] },
-			order: [["name", "ASC"]],
 		});
 
-		const users = userData.map((project) => project.get({ plain: true }));
+		const postData = await Post.findAll({
+			include: [User, Comment],
+			order: [["updatedAt", "DESC"]],
+		});
+
+		const posts = postData.map((element) => element.get({ plain: true }));
 
 		res.render("homepage", {
-			users,
-			// Pass the logged in flag to the template
+			posts: posts,
 			logged_in: req.session.logged_in,
 		});
 	} catch (err) {
@@ -23,6 +26,7 @@ router.get("/", withAuth, async (req, res) => {
 	}
 });
 
+// To logout, see client side javascript
 router.get("/login", (req, res) => {
 	// If a session exists, redirect the request to the homepage
 	if (req.session.logged_in) {
@@ -33,6 +37,32 @@ router.get("/login", (req, res) => {
 	res.render("login");
 });
 
-export default router;
-
 // TODO: Instead of preventing the homepage from loading, prevent access from creating posts/comments. You may still access the homepage in this project
+
+// Load and render the dashboard view
+router.get("/dashboard", withAuth, async (req, res) => {
+	console.log("dashboard route");
+
+	res.render("dashboard", {
+		current_user: req.session.user_id,
+	});
+});
+
+// Load and render a post in its own window with comments
+router.get("/post/:post_id", async (req, res) => {
+	console.log("post route");
+	console.log(`Post ID: ${req.body.post_id}`);
+
+	const postData = Post.findOne({
+		where: { id: req.body.post_id },
+	});
+
+	const post = postData.dataValues;
+
+	res.render("post", {
+		post: post,
+		logged_in: req.session.logged_in,
+	});
+});
+
+export default router;
