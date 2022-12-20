@@ -42,9 +42,16 @@ router.get("/login", (req, res) => {
 // Load and render the dashboard view
 router.get("/dashboard", withAuth, async (req, res) => {
 	console.log("dashboard route");
+	const postData = await Post.findAll({
+		where: { user_id: req.session.user_id },
+	});
+
+	const posts = postData.map((element) => element.get({ plain: true }));
 
 	res.render("dashboard", {
+		posts: posts,
 		current_user: req.session.user_id,
+		logged_in: req.session.logged_in,
 	});
 });
 
