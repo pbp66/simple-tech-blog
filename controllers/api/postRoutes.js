@@ -40,6 +40,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
 	try {
+		// Returns null if MySQL doesn't find an entry with the same id
 		const exists = await Post.findOne({ where: { id: req.params.id } });
 		if (exists) {
 			const updatedPost = await Post.update(
@@ -58,7 +59,7 @@ router.put("/:id", async (req, res) => {
 			}
 		} else {
 			res.status(400).send(
-				`<h1>400 Bad Request</h1><h3>Post does not exist. Create a post using a Post Route instead.</h3>`
+				`<h1>400 Bad Request</h1><h3>Post does not appear to exist. Create a post using a Post Route instead.</h3>`
 			);
 		}
 	} catch (err) {
