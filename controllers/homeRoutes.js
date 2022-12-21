@@ -58,10 +58,10 @@ router.get("/dashboard", withAuth, async (req, res) => {
 // Load and render a post in its own window with comments
 router.get("/post/:post_id", async (req, res) => {
 	console.log("post route");
-	console.log(`Post ID: ${req.body.post_id}`);
+	console.log(`Post ID: ${req.params.post_id}`);
 
 	const postData = Post.findOne({
-		where: { id: req.body.post_id },
+		where: { id: req.params.post_id },
 	});
 
 	const post = postData.dataValues;

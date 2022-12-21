@@ -19,7 +19,7 @@ Comment.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		owner_id: {
+		user_id: {
 			type: DataTypes.INTEGER,
 			references: {
 				model: User,
@@ -32,6 +32,11 @@ Comment.init(
 				model: Post,
 				key: "id",
 			},
+		},
+		edit_status: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: false,
 		},
 	},
 	{
