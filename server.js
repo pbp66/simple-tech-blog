@@ -5,7 +5,8 @@ import handlebars from "express-handlebars";
 import routes from "./controllers";
 //import customHelpers from "./utils/helpers";
 import sequelize from "./config/connection";
-import SequelizeStore from "connect-session-sequelize";
+import sequelizeSession from "connect-session-sequelize";
+const SequelizeStore = sequelizeSession(session.Store);
 import dotenv from "dotenv";
 dotenv.config();
 import hbsHelpers from "handlebars-helpers";
@@ -18,7 +19,7 @@ const hbs = handlebars.create({ helpers }); // { helpers, customHelpers }
 
 // Have the server use a session
 app.use(
-	session.Cookie({
+	session({
 		secret: process.env.SESSION_SECRET,
 		cookie: {
 			// milliseconds 3,600,000 = 1 hour;
