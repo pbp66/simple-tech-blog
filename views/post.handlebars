@@ -1,0 +1,31 @@
+<div class="card post">
+	<div class="card-body">
+		<div class="post-title">
+			<h5 class="card-title">
+				{{! Post Title from object}}
+				Test Title
+			</h5>
+			<h6 class="post-data">
+				{{! Post data: user, time-date}}
+				Posted by USER on MM/DD/YYYY @ HH:MM
+			</h6>
+		</div>
+		<div class="post-text">
+			<p class="card-text">{{! Post Text/Content}} Test Content</p>
+		</div>
+		<div class="comments">
+			{{! Use an each loop to generate all comments within page}}
+			<div class="comment">
+				<div class="card-body">
+					<p class="card-text">{{! Post Text/Content}}
+						Test Content
+					</p>
+					<h6 class="card-subtitle">
+						{{! Post Comment Data}}
+						Commented by USER on MM/DD/YYY @ HH:MM
+					</h6>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

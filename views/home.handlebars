@@ -1,1 +1,21 @@
 {{! Loads all posts created on the tech bog with active links to view each post in its own page}}
+<div class="container-fluid">
+	<div class="card post">
+		<div class="card-body">
+			<div class="post-title">
+				<h5 class="card-title">
+					{{! Post Title from object}}
+					Test Title
+				</h5>
+				<h6 class="post-data">
+					{{! Post data: user, time-date}}
+					Posted by USER on MM/DD/YYYY @ HH:MM
+				</h6>
+			</div>
+			<div class="post-text">
+				<p class="card-text">{{! Post Text/Content}} Test Content</p>
+			</div>
+			<a href="#" class="card-link">Link to Post on Separate Page</a>
+		</div>
+	</div>
+</div>
