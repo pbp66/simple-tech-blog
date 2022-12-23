@@ -3,7 +3,7 @@ import express from "express";
 import session from "express-session";
 import handlebars from "express-handlebars";
 import routes from "./controllers";
-import customHelpers from "./utils/helpers";
+//import customHelpers from "./utils/helpers";
 import sequelize from "./config/connection";
 import SequelizeStore from "connect-session-sequelize";
 import dotenv from "dotenv";

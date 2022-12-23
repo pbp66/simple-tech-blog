@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/connection";
+import User from "./user.js";
 import Post from "./post.js";
 
 class Comment extends Model {}
