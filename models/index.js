@@ -1,6 +1,6 @@
-import User from "./user.js";
-import Post from "./post.js";
-import Comment from "./comment.js";
+import User from "./user";
+import Post from "./post";
+import Comment from "./comment";
 
 // Post - User relationship
 Post.belongsTo(User, {
