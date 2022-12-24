@@ -1,4 +1,5 @@
 import express from "express";
+import sequelize from "../config/connection";
 const router = new express.Router();
 import { User, Post, Comment } from "../models";
 import withAuth from "../utils/auth";
@@ -11,6 +12,16 @@ router.get("/", async (req, res) => {
 		// });
 
 		const postData = await Post.findAll({
+			attributes: {
+				include: [
+					sequelize.fn(
+						"DATE_FORMAT",
+						sequelize.col("updated_at"),
+						"%m/%d/%Y %h:%i %p"
+					),
+					"updated_at",
+				],
+			},
 			include: [User, Comment],
 			order: [["updatedAt", "DESC"]],
 		});
@@ -24,6 +35,7 @@ router.get("/", async (req, res) => {
 			logged_in: req.session.logged_in,
 		});
 	} catch (err) {
+		console.error(err);
 		res.status(500).json(err);
 	}
 });
