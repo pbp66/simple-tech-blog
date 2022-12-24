@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 		console.log(posts);
 
 		res.render("home", {
-			//posts: posts,
+			posts,
 			logged_in: req.session.logged_in,
 		});
 	} catch (err) {
