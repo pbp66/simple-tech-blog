@@ -6,19 +6,19 @@ import withAuth from "../utils/auth";
 // Non-logged in users may view the homepage. They may not access a dashboard, make posts, or make comments
 router.get("/", async (req, res) => {
 	try {
-		const userData = await User.findAll({
-			attributes: { exclude: ["password"] },
-		});
+		// const userData = await User.findAll({
+		// 	attributes: { exclude: ["password"] },
+		// });
 
-		const postData = await Post.findAll({
-			include: [User, Comment],
-			order: [["updatedAt", "DESC"]],
-		});
+		// const postData = await Post.findAll({
+		// 	include: [User, Comment],
+		// 	order: [["updatedAt", "DESC"]],
+		// });
 
-		const posts = postData.map((element) => element.get({ plain: true }));
+		// const posts = postData.map((element) => element.get({ plain: true }));
 
-		res.render("homepage", {
-			posts: posts,
+		res.render("home", {
+			//posts: posts,
 			logged_in: req.session.logged_in,
 		});
 	} catch (err) {
