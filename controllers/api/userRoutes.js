@@ -6,6 +6,8 @@ import { User } from "../../models";
 
 router.post("/login", async (req, res) => {
 	try {
+		console.log(req);
+
 		// Find the user who matches the posted e-mail address
 		const userData = await User.findOne({
 			where: { email: req.body.email },
