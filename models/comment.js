@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/connection";
-import User from "./user.js";
-import Post from "./post.js";
+import User from "./user";
+import Post from "./post";
 
 class Comment extends Model {}
 
@@ -17,7 +17,7 @@ Comment.init(
 			autoIncrement: true,
 		},
 		content: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		user_id: {
@@ -45,7 +45,7 @@ Comment.init(
 		timestamps: true, // Adds createdAt and updateAt timestamps to this model
 		freezeTableName: true,
 		underscored: true,
-		modelName: "post",
+		modelName: "comment",
 	}
 );
 
