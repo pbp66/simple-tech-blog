@@ -1,17 +1,28 @@
-<div class="card post">
-	<div class="card-body">
-		<div class="post-title">
-			<h5 class="card-title">
-				{{! Post Title from object}}
-				Test Title
-			</h5>
-			<h6 class="post-data">
-				{{! Post data: user, time-date}}
-				Posted by USER on MM/DD/YYYY @ HH:MM
-			</h6>
-		</div>
-		<div class="post-text">
-			<p class="card-text">{{! Post Text/Content}} Test Content</p>
+{{! Loads all posts created on the tech bog with active links to view each post in its own page}}
+<style>
+	h5, h6 { margin: 5px; padding: 5px; display: flex; align-items: center; } h5
+	{ text-align: left; font-size: x-large; justify-content: flex-start; } h6
+	{text-align: right; font-size: small; justify-content: flex-end;}
+	.card-title { border-radius: 10px; }
+</style>
+<div class="container-fluid">
+	<div class="card post">
+		<div class="card-body">
+			<div class="row card-title bg-dark">
+				<h5 class="col post-title font-weight-bold text-light">
+					{{! Post Title from object}}
+					Test Title
+				</h5>
+				<h6
+					class="post-user post-time col font-weight-light text-muted"
+				>
+					{{! Post data: user, time-date}}
+					Posted by USER on MM/DD/YYYY @ HH:MM
+				</h6>
+			</div>
+			<div class="post-text">
+				<p class="card-text">{{! Post Text/Content}} Test Content</p>
+			</div>
 		</div>
 		<div class="comments">
 			{{! Use an each loop to generate all comments within page}}
