@@ -33,8 +33,6 @@ router.get("/", async (req, res) => {
 
 		const posts = postData.map((element) => element.get({ plain: true }));
 
-		console.log(posts);
-
 		res.render("home", {
 			posts,
 			logged_in: req.session.logged_in,
@@ -60,15 +58,54 @@ router.get("/login", (req, res) => {
 
 // Load and render the dashboard view
 router.get("/dashboard", withAuth, async (req, res) => {
-	console.log("dashboard route");
 	const postData = await Post.findAll({
-		where: { user_id: req.session.user_id },
+		attributes: {
+			include: [
+				"id",
+				"title",
+				"content",
+				[
+					sequelize.fn(
+						"DATE_FORMAT",
+						sequelize.col("post.updated_at"),
+						"%m/%d/%Y %h:%i %p"
+					),
+					"updatedAt",
+				],
+			],
+		},
+		include: [User, Comment],
+		order: [["updatedAt", "DESC"]],
+		where: { owner_id: req.session.user_id },
 	});
-
 	const posts = postData.map((element) => element.get({ plain: true }));
 
+	const commentsData = await Comment.findAll({
+		attributes: {
+			include: [
+				"id",
+				"content",
+				"edit_status",
+				[
+					sequelize.fn(
+						"DATE_FORMAT",
+						sequelize.col("post.updated_at"),
+						"%m/%d/%Y %h:%i %p"
+					),
+					"updatedAt",
+				],
+			],
+		},
+		include: [User, Post],
+		where: { user_id: req.session.user_id },
+	});
+	const comments = commentsData.map((element) =>
+		element.get({ plain: true })
+	);
+
 	res.render("dashboard", {
-		posts: posts,
+		posts,
+		comments,
 		current_user: req.session.user_id,
 		logged_in: req.session.logged_in,
 	});
