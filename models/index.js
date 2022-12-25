@@ -1,14 +1,14 @@
-import User from "./user.js";
-import Post from "./post.js";
-import Comment from "./comment.js";
+import User from "./user";
+import Post from "./post";
+import Comment from "./comment";
 
 // Post - User relationship
-Post.belongsTo(User, {
+User.hasMany(Post, {
+	onDelete: "CASCADE",
 	foreignKey: "owner_id",
 });
 
-User.hasMany(Post, {
-	onDelete: "CASCADE",
+Post.belongsTo(User, {
 	foreignKey: "owner_id",
 });
 
@@ -24,12 +24,12 @@ Comment.belongsTo(Post, {
 
 // Comment - User relationship
 Comment.belongsTo(User, {
-	foreignKey: "owner_id",
+	foreignKey: "user_id",
 });
 
 User.hasMany(Comment, {
 	onDelete: "CASCADE",
-	foreignKey: "owner_id",
+	foreignKey: "user_id",
 });
 
 export { User, Post, Comment };

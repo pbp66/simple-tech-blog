@@ -1,6 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/connection";
-import Post from "./post.js";
+import User from "./user";
+import Post from "./post";
 
 class Comment extends Model {}
 
@@ -16,10 +17,10 @@ Comment.init(
 			autoIncrement: true,
 		},
 		content: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
-		owner_id: {
+		user_id: {
 			type: DataTypes.INTEGER,
 			references: {
 				model: User,
@@ -33,13 +34,18 @@ Comment.init(
 				key: "id",
 			},
 		},
+		edit_status: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: false,
+		},
 	},
 	{
 		sequelize,
 		timestamps: true, // Adds createdAt and updateAt timestamps to this model
 		freezeTableName: true,
 		underscored: true,
-		modelName: "post",
+		modelName: "comment",
 	}
 );
 

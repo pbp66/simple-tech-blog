@@ -3,9 +3,9 @@ import express from "express";
 import session from "express-session";
 import handlebars from "express-handlebars";
 import routes from "./controllers";
-import customHelpers from "./utils/helpers";
 import sequelize from "./config/connection";
-import SequelizeStore from "connect-session-sequelize";
+import sequelizeSession from "connect-session-sequelize";
+const SequelizeStore = sequelizeSession(session.Store);
 import dotenv from "dotenv";
 dotenv.config();
 import hbsHelpers from "handlebars-helpers";
@@ -14,11 +14,12 @@ const helpers = hbsHelpers();
 const app = express();
 // If the port is not specified in the .env file, use 3001.
 const PORT = process.env.PORT || 3001;
-const hbs = handlebars.create({ helpers }); // { helpers, customHelpers }
+
+const hbs = handlebars.create({ helpers });
 
 // Have the server use a session
 app.use(
-	session.Cookie({
+	session({
 		secret: process.env.SESSION_SECRET,
 		cookie: {
 			// milliseconds 3,600,000 = 1 hour;
