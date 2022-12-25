@@ -14,12 +14,17 @@ router.get("/", async (req, res) => {
 		const postData = await Post.findAll({
 			attributes: {
 				include: [
-					sequelize.fn(
-						"DATE_FORMAT",
-						sequelize.col("updated_at"),
-						"%m/%d/%Y %h:%i %p"
-					),
-					"updated_at",
+					"id",
+					"title",
+					"content",
+					[
+						sequelize.fn(
+							"DATE_FORMAT",
+							sequelize.col("post.updated_at"),
+							"%m/%d/%Y %h:%i %p"
+						),
+						"updatedAt",
+					],
 				],
 			},
 			include: [User, Comment],
