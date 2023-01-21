@@ -28,6 +28,7 @@
 		"express-handlebars": "^6.0.6",
 		"express-session": "^1.17.3",
 		"handlebars-helpers": "^0.9.8",
+		"luxon": "^3.2.1",
 		"mysql2": "^2.3.3",
 		"sequelize": "^6.26.0"
 	},
