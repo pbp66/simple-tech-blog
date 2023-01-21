@@ -1,0 +1,19 @@
+<div class="card post">
+	<div class="card-body">
+		<div class="row card-title bg-dark">
+			<h5 class="col post-title font-weight-bold text-light">
+				{{! Post Title from object}}
+				Test Title
+			</h5>
+			<h6 class="post-user post-time col font-weight-light text-muted">
+				{{! Post data: user, time-date}}
+				Posted by USER on MM/DD/YYYY @ HH:MM
+			</h6>
+		</div>
+		<div class="post-text">
+			<p class="card-text">{{! Post Text/Content}} Test Content</p>
+		</div>
+		<a href="#" class="card-link">View Comments</a>
+		{{> comment}}
+	</div>
+</div>
