@@ -1,6 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/connection";
-import User from "./user.js";
+import User from "./user";
 
 class Post extends Model {}
 
@@ -15,11 +15,11 @@ Post.init(
 			autoIncrement: true,
 		},
 		title: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		content: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		owner_id: {

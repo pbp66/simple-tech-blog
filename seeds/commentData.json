@@ -1,0 +1,62 @@
+[
+	{
+		"content": "comment #1",
+		"user_id": 1,
+		"post_id": 1,
+		"edit_status": false
+	},
+	{
+		"content": "comment #2",
+		"user_id": 1,
+		"post_id": 1,
+		"edit_status": false
+	},
+	{
+		"content": "comment #3",
+		"user_id": 3,
+		"post_id": 1,
+		"edit_status": false
+	},
+	{
+		"content": "comment #4",
+		"user_id": 3,
+		"post_id": 1,
+		"edit_status": false
+	},
+	{
+		"content": "comment #5",
+		"user_id": 1,
+		"post_id": 2,
+		"edit_status": false
+	},
+	{
+		"content": "comment #6",
+		"user_id": 2,
+		"post_id": 1,
+		"edit_status": false
+	},
+	{
+		"content": "comment #7",
+		"user_id": 2,
+		"post_id": 3,
+		"edit_status": false
+	},
+	{
+		"content": "comment #8",
+		"user_id": 1,
+		"post_id": 4,
+		"edit_status": false
+	},
+	{
+		"content": "comment #9",
+		"user_id": 1,
+		"post_id": 5,
+		"edit_status": false
+	},
+	{
+		"content": "comment #10",
+		"user_id": 4,
+		"post_id": 2,
+		"edit_status": false
+	}
+]
