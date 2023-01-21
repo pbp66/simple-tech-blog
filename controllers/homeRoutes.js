@@ -10,15 +10,15 @@ router.get("/", async (req, res) => {
 		// 	attributes: { exclude: ["password"] },
 		// });
 
-		// const postData = await Post.findAll({
-		// 	include: [User, Comment],
-		// 	order: [["updatedAt", "DESC"]],
-		// });
+		const postData = await Post.findAll({
+			//include: [User, Comment],
+			//order: [["updatedAt", "DESC"]],
+		});
 
-		// const posts = postData.map((element) => element.get({ plain: true }));
+		const posts = postData.map((element) => element.get({ plain: true }));
 
 		res.render("home", {
-			//posts: posts,
+			posts: posts,
 			logged_in: req.session.logged_in,
 		});
 	} catch (err) {

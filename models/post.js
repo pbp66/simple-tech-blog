@@ -4,8 +4,7 @@ import User from "./user.js";
 
 class Post extends Model {}
 
-// Belongs to ONE owner
-// CAN have many comments. See postComment.js
+// Belongs to ONE owner (user)
 
 Post.init(
 	{
