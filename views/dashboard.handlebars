@@ -11,3 +11,8 @@
 	{text-align: right; font-size: small; justify-content: flex-end;}
 	.card-title { border-radius: 10px; }
 </style>
+<div class="container-fluid">
+	{{#each posts as |post| }}
+		{{> post this}}
+	{{/each}}
+</div>
