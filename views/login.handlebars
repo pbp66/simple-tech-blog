@@ -1,5 +1,16 @@
 {{! Sourced from my project two team's files. https://github.com/Hunter-Mayer/college-football-pickem/blob/main/views/login.handlebars }}
-
+{{#if redirectStatus}}
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong>You must be logged in to access that feature.</strong>
+		Either log in or sign-up for an account.
+		<button
+			type="button"
+			class="btn-close"
+			data-bs-dismiss="alert"
+			aria-label="Close"
+		></button>
+	</div>
+{{/if}}
 <div class="row" id="loginPage">
 	<div class="col-sm-6 my-3">
 		<h2>Sign Up</h2>

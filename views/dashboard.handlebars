@@ -12,34 +12,10 @@
 	.card-title { border-radius: 10px; }
 </style>
 <div class="container-fluid">
-	{{#each posts as |post|}}
-		<div class="card post">
-			<div class="card-body">
-				<div class="row card-title bg-dark">
-					<h5 class="col post-title font-weight-bold text-light">
-						{{post.title}}
-					</h5>
-					<h6
-						class="post-user post-time col font-weight-light text-muted"
-					>
-						Posted by
-						{{post.user.name}}
-						on
-						{{post.updatedAt}}
-						{{! Posted by USER on MM/DD/YYYY @ HH:MM }}
-					</h6>
-				</div>
-				<div class="post-text">
-					<p class="card-text">{{! Post Text/Content}}
-						{{post.content}}
-					</p>
-				</div>
-				<a href="#" class="card-link">View Post</a>
-			</div>
-		</div>
+	{{#each posts as |post| }}
+		{{> post this}}
 	{{/each}}
 </div>
-
 <div class="container-fluid">
 	{{#each comments as |comment|}}
 		<div class="card comment">

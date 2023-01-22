@@ -3,6 +3,7 @@ import sequelize from "../config/connection";
 const router = new express.Router();
 import { User, Post, Comment } from "../models";
 import withAuth from "../utils/auth";
+import { DateTime } from "luxon";
 
 // Non-logged in users may view the homepage. They may not access a dashboard, make posts, or make comments
 router.get("/", async (req, res) => {
@@ -45,19 +46,31 @@ router.get("/", async (req, res) => {
 
 // To logout, see client side javascript
 router.get("/login", (req, res) => {
+	let redirectStatus;
+
 	// If a session exists, redirect the request to the homepage
 	if (req.session.logged_in) {
-		res.redirect("/");
+		res.redirect("/home");
 		return;
 	}
 
-	res.render("login");
-});
+	console.log(req.query.redirect);
 
-// TODO: Instead of preventing the homepage from loading, prevent access from creating posts/comments. You may still access the homepage in this project
+	if (req.query.redirect == 1) {
+		redirectStatus = 1;
+	} else {
+		redirectStatus = 0;
+	}
+
+	res.render("login", { redirectStatus });
+});
 
 // Load and render the dashboard view
 router.get("/dashboard", withAuth, async (req, res) => {
+	// const userData = await User.findAll({
+	// 	attributes: { exclude: ["password"] },
+	// });
+  
 	const postData = await Post.findAll({
 		attributes: {
 			include: [
@@ -78,6 +91,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
 		order: [["updatedAt", "DESC"]],
 		where: { owner_id: req.session.user_id },
 	});
+
 	const posts = postData.map((element) => element.get({ plain: true }));
 
 	const commentsData = await Comment.findAll({
@@ -117,7 +131,15 @@ router.get("/post/:post_id", async (req, res) => {
 	console.log(`Post ID: ${req.params.post_id}`);
 
 	const postData = Post.findOne({
+		include: [
+			User,
+			{
+				model: Comment,
+				order: [["updatedAt", "DESC"]],
+			},
+		],
 		where: { id: req.params.post_id },
+		order: [["updatedAt", "DESC"]],
 	});
 
 	const post = postData.dataValues;
