@@ -20,14 +20,11 @@ router.get("/", async (req, res) => {
 
 		const posts = postData.map((element) => {
 			let post = element.get({ plain: true });
-			console.log(post.updatedAt);
 			post.updatedAt = DateTime.fromJSDate(post.updatedAt).toFormat(
 				"LL/dd/yyyy hh:mm a"
 			);
 			return post;
 		});
-
-		console.log(posts);
 
 		res.render("home", {
 			posts: posts,
@@ -40,16 +37,24 @@ router.get("/", async (req, res) => {
 
 // To logout, see client side javascript
 router.get("/login", (req, res) => {
+	let redirectStatus;
+
 	// If a session exists, redirect the request to the homepage
 	if (req.session.logged_in) {
 		res.redirect("/");
 		return;
 	}
 
-	res.render("login");
-});
+	console.log(req.query.redirect);
 
-// TODO: Instead of preventing the homepage from loading, prevent access from creating posts/comments. You may still access the homepage in this project
+	if (req.query.redirect == 1) {
+		redirectStatus = 1;
+	} else {
+		redirectStatus = 0;
+	}
+
+	res.render("login", { redirectStatus });
+});
 
 // Load and render the dashboard view
 router.get("/dashboard", withAuth, async (req, res) => {
@@ -62,7 +67,15 @@ router.get("/dashboard", withAuth, async (req, res) => {
 		where: { user_id: req.session.user_id },
 	});
 
-	const posts = postData.map((element) => element.get({ plain: true }));
+	const posts = postData.map((element) => {
+		let post = element.get({ plain: true });
+		post.updatedAt = DateTime.fromJSDate(post.updatedAt).toFormat(
+			"LL/dd/yyyy hh:mm a"
+		);
+		return post;
+	});
+
+	// TODO: Get and send ALL comments
 
 	res.render("dashboard", {
 		posts: posts,
@@ -77,7 +90,15 @@ router.get("/post/:post_id", async (req, res) => {
 	console.log(`Post ID: ${req.params.post_id}`);
 
 	const postData = Post.findOne({
+		include: [
+			User,
+			{
+				model: Comment,
+				order: [["updatedAt", "DESC"]],
+			},
+		],
 		where: { id: req.params.post_id },
+		order: [["updatedAt", "DESC"]],
 	});
 
 	const post = postData.dataValues;
