@@ -1,4 +1,5 @@
 import express from "express";
+import sequelize from "../config/connection";
 const router = new express.Router();
 import { User, Post, Comment } from "../models";
 import withAuth from "../utils/auth";
@@ -7,30 +8,38 @@ import { DateTime } from "luxon";
 // Non-logged in users may view the homepage. They may not access a dashboard, make posts, or make comments
 router.get("/", async (req, res) => {
 	try {
+		// const userData = await User.findAll({
+		// 	attributes: { exclude: ["password"] },
+		// });
+
 		const postData = await Post.findAll({
-			include: [
-				User,
-				{
-					model: Comment,
-					order: [["updatedAt", "DESC"]],
-				},
-			],
+			attributes: {
+				include: [
+					"id",
+					"title",
+					"content",
+					[
+						sequelize.fn(
+							"DATE_FORMAT",
+							sequelize.col("post.updated_at"),
+							"%m/%d/%Y %h:%i %p"
+						),
+						"updatedAt",
+					],
+				],
+			},
+			include: [User, Comment],
 			order: [["updatedAt", "DESC"]],
 		});
 
-		const posts = postData.map((element) => {
-			let post = element.get({ plain: true });
-			post.updatedAt = DateTime.fromJSDate(post.updatedAt).toFormat(
-				"LL/dd/yyyy hh:mm a"
-			);
-			return post;
-		});
+		const posts = postData.map((element) => element.get({ plain: true }));
 
 		res.render("home", {
-			posts: posts,
+			posts,
 			logged_in: req.session.logged_in,
 		});
 	} catch (err) {
+		console.error(err);
 		res.status(500).json(err);
 	}
 });
@@ -58,27 +67,59 @@ router.get("/login", (req, res) => {
 
 // Load and render the dashboard view
 router.get("/dashboard", withAuth, async (req, res) => {
-	console.log("dashboard route");
 	// const userData = await User.findAll({
 	// 	attributes: { exclude: ["password"] },
 	// });
-
+  
 	const postData = await Post.findAll({
+		attributes: {
+			include: [
+				"id",
+				"title",
+				"content",
+				[
+					sequelize.fn(
+						"DATE_FORMAT",
+						sequelize.col("post.updated_at"),
+						"%m/%d/%Y %h:%i %p"
+					),
+					"updatedAt",
+				],
+			],
+		},
+		include: [User, Comment],
+		order: [["updatedAt", "DESC"]],
+		where: { owner_id: req.session.user_id },
+	});
+
+	const posts = postData.map((element) => element.get({ plain: true }));
+
+	const commentsData = await Comment.findAll({
+		attributes: {
+			include: [
+				"id",
+				"content",
+				"edit_status",
+				[
+					sequelize.fn(
+						"DATE_FORMAT",
+						sequelize.col("post.updated_at"),
+						"%m/%d/%Y %h:%i %p"
+					),
+					"updatedAt",
+				],
+			],
+		},
+		include: [User, Post],
 		where: { user_id: req.session.user_id },
 	});
-
-	const posts = postData.map((element) => {
-		let post = element.get({ plain: true });
-		post.updatedAt = DateTime.fromJSDate(post.updatedAt).toFormat(
-			"LL/dd/yyyy hh:mm a"
-		);
-		return post;
-	});
-
-	// TODO: Get and send ALL comments
+	const comments = commentsData.map((element) =>
+		element.get({ plain: true })
+	);
 
 	res.render("dashboard", {
-		posts: posts,
+		posts,
+		comments,
 		current_user: req.session.user_id,
 		logged_in: req.session.logged_in,
 	});

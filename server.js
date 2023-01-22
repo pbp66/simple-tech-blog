@@ -3,7 +3,6 @@ import express from "express";
 import session from "express-session";
 import handlebars from "express-handlebars";
 import routes from "./controllers";
-//import customHelpers from "./utils/helpers";
 import sequelize from "./config/connection";
 import sequelizeSession from "connect-session-sequelize";
 const SequelizeStore = sequelizeSession(session.Store);
@@ -15,7 +14,8 @@ const helpers = hbsHelpers();
 const app = express();
 // If the port is not specified in the .env file, use 3001.
 const PORT = process.env.PORT || 3001;
-const hbs = handlebars.create({ helpers }); // { helpers, customHelpers }
+
+const hbs = handlebars.create({ helpers });
 
 // Have the server use a session
 app.use(
@@ -40,7 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve("./public")));
 app.use(routes);
 
-//await sequelize.sync({ force: true });
+await sequelize.sync({ force: false });
 
 app.listen(PORT, () =>
 	console.log(`\nNow listening at http://localhost:${PORT}\n`)
