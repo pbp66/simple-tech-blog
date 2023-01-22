@@ -2,16 +2,30 @@ import express from "express";
 const router = new express.Router();
 import { User, Post, Comment } from "../models";
 import withAuth from "../utils/auth";
+import { DateTime } from "luxon";
 
 // Non-logged in users may view the homepage. They may not access a dashboard, make posts, or make comments
 router.get("/", async (req, res) => {
 	try {
 		const postData = await Post.findAll({
-			include: [User, Comment],
+			include: [
+				User,
+				{
+					model: Comment,
+					order: [["updatedAt", "DESC"]],
+				},
+			],
 			order: [["updatedAt", "DESC"]],
 		});
 
-		const posts = postData.map((element) => element.get({ plain: true }));
+		const posts = postData.map((element) => {
+			let post = element.get({ plain: true });
+			console.log(post.updatedAt);
+			post.updatedAt = DateTime.fromJSDate(post.updatedAt).toFormat(
+				"LL/dd/yyyy hh:mm a"
+			);
+			return post;
+		});
 
 		console.log(posts);
 
