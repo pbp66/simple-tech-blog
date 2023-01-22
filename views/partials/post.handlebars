@@ -2,7 +2,7 @@
 	<div class="card-body">
 		<div class="row card-title bg-dark">
 			<h5 class="col post-title font-weight-bold text-light">
-				{{ this.title }}
+				<a href="#" class="btn btn-outline-warning">{{ this.title }}</a> 
 			</h5>
 			<h6 class="post-user post-time col font-weight-light text-muted">
 				{{! Post data: user, time-date}}
@@ -11,9 +11,10 @@
 			</h6>
 		</div>
 		<div class="post-text">
-			<p class="card-text">{{! Post Text/Content}} Test Content</p>
+			<p class="card-text">{{ this.content }}</p>
 		</div>
-		<a href="#" class="card-link">View Comments</a>
-		{{> comment}}
+		{{!-- Create to a drop down button to view comments --}}
+		{{> comment this.comments}}
+
 	</div>
 </div>

@@ -1,7 +1,7 @@
 <div class="comments card">
-	<ul class="comment_list card-text bg-dark text-light">
-		<li class="comment"> Test Comment 1</li>
-		<li class="comment"> Test Comment 2</li>
-		<li class="comment"> Test Comment 3</li>
+	<ul class="comment-list list-group list-group-flush">
+		{{#each this as |comment|}}
+			<li class="list-group-item comment"> {{comment.content}}</li>
+		{{/each}}
 	</ul>
 </div>
