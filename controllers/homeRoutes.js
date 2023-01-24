@@ -50,8 +50,6 @@ router.get("/login", (req, res) => {
 		return;
 	}
 
-	console.log(req.query.redirect);
-
 	if (req.query.redirect == 1) {
 		redirectStatus = 1;
 	} else {
@@ -110,7 +108,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
 			element.get({ plain: true })
 		);
 
-		const count = (posts.length + comments.length) > 0;
+		const count = posts.length + comments.length > 0;
 
 		res.render("dashboard", {
 			count,
