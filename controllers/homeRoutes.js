@@ -105,7 +105,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
 					[
 						sequelize.fn(
 							"DATE_FORMAT",
-							sequelize.col("post.updated_at"),
+							sequelize.col("comment.updated_at"),
 							"%m/%d/%Y %h:%i %p"
 						),
 						"updatedAt",
