@@ -20,3 +20,28 @@
 		</ul>
 	</div>
 </div>
+<p>
+	<button
+		class="btn btn-outline-primary"
+		type="button"
+		data-bs-toggle="collapse"
+		data-bs-target="#create-comment"
+		aria-expanded="false"
+		aria-controls="create-comment"
+	>
+		Create Comment
+	</button>
+</p>
+<div class="collapse" id="create-comment">
+	<form>
+		<div class="mb-3">
+			<label for="new-comment" class="form-label">Comment</label>
+			<textarea
+				class="form-control"
+				name="new-comment"
+				id="new-comment"
+			></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
