@@ -8,10 +8,6 @@ import { DateTime } from "luxon";
 // Non-logged in users may view the homepage. They may not access a dashboard, make posts, or make comments
 router.get("/", async (req, res) => {
 	try {
-		// const userData = await User.findAll({
-		// 	attributes: { exclude: ["password"] },
-		// });
-
 		const postData = await Post.findAll({
 			attributes: {
 				include: [
@@ -67,11 +63,6 @@ router.get("/login", (req, res) => {
 
 // Load and render the dashboard view
 router.get("/dashboard", withAuth, async (req, res) => {
-	// const userData = await User.findAll({
-	// 	attributes: { exclude: ["name", "email", "password"] },
-	// 	raw: true,
-	// });
-
 	try {
 		const postData = await Post.findAll({
 			attributes: {
@@ -119,8 +110,10 @@ router.get("/dashboard", withAuth, async (req, res) => {
 			element.get({ plain: true })
 		);
 
-		// TODO: Render empty page if user doesn't have any posts or comments
+		const count = (posts.length + comments.length) > 0;
+
 		res.render("dashboard", {
+			count,
 			posts,
 			comments,
 			current_user: req.session.user_id,
