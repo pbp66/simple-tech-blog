@@ -4,41 +4,85 @@
 	{text-align: right; font-size: small; justify-content: flex-end;}
 	.card-title { border-radius: 10px; }
 </style>
-<div>
-
+<div class="create-post-button">
+	<p>
+		<button
+			class="btn btn-primary"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#new-post-collapse"
+			aria-expanded="false"
+			aria-controls="#new-post-collapse"
+		>
+			Create Post
+		</button>
+	</p>
+	<div class="collapse" id="new-post-collapse">
+		<div class="create-post card">
+			<form>
+				<div class="mb-3">
+					<label for="post-title" class="form-label">Title</label>
+					<input
+						type="text"
+						class="form-control"
+						id="post-title"
+						aria-describedby="post-title-help"
+					/>
+					<div id="post-title-help" class="form-text">Label your blog
+						post with a creative title!</div>
+				</div>
+				<div class="mb-3">
+					<label for="post-body" class="form-label">Content</label>
+					<textarea
+						class="form-control"
+						name="post-body"
+						id="post-body"
+					></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	</div>
 </div>
 {{#if count}}
-<div class="container-fluid">
-	{{#each posts as |post| }}
-		{{> post this}}
-	{{/each}}
-</div>
-<div class="container-fluid">
-	{{#each comments as |comment|}}
-		<div class="card comment">
-			<div class="card-body">
-				<div class="row card-title">
-					<h6
-						class="comment-user comment-time col font-weight-light text-dark"
-					>
-						Commented By {{comment.user.name}} on {{comment.updatedAt}}
-					</h6>
-				</div>
-				<div class="comment-text">
-					<p class="card-text">
-						{{comment.content}}
-					</p>
-					<a href="/api/posts/{{comment.post_id}}" class="card-link btn btn-warning font-weight-light">
-						View comment on "{{comment.post.title}}"
-					</a>
+	<div class="container-fluid">
+		{{#each posts as |post|}}
+			{{!-- {{> post this}} --}}
+		{{/each}}
+	</div>
+	<div class="container-fluid">
+		{{#each comments as |comment|}}
+			<div class="card comment">
+				<div class="card-body">
+					<div class="row card-title">
+						<h6
+							class="comment-user comment-time col font-weight-light text-dark"
+						>
+							Commented By
+							{{comment.user.name}}
+							on
+							{{comment.updatedAt}}
+						</h6>
+					</div>
+					<div class="comment-text">
+						<p class="card-text">
+							{{comment.content}}
+						</p>
+						<a
+							href="/api/posts/{{comment.post_id}}"
+							class="card-link btn btn-primary font-weight-light"
+						>
+							View comment on "{{comment.post.title}}"
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
-	{{/each}}
-</div>
+		{{/each}}
+	</div>
 {{else}}
 	<div class="alert alert-primary alert-dismissible fade show" role="alert">
-		You have not made any posts or comments. Create a post or comment on a post and see your community contributions here!
+		You have not made any posts or comments. Create a post or comment on a
+		post and see your community contributions here!
 		<button
 			type="button"
 			class="btn-close"
