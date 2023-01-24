@@ -30,7 +30,7 @@ User.init(
 			allowNull: false,
 			unique: true,
 			validate: {
-				isAlphanumeric: true,
+				is: /^[a-zA-Z\d_-]$/, // Match lowercase, uppercase, 0-9, _, and -
 				len: [4, 14],
 			},
 		},
