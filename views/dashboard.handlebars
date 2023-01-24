@@ -1,16 +1,13 @@
-{{! Must display all posts associated with the user}}
-
-{{! Must display all comments associated with the user}}
-
-{{! Posts and comments must link back to the "parent". Post will load its own view. Comments will load the post containing the comment}}
-
-{{! Loads all posts created on the tech bog with active links to view each post in its own page}}
 <style>
 	h5, h6 { margin: 5px; padding: 5px; display: flex; align-items: center; } h5
 	{ text-align: left; font-size: x-large; justify-content: flex-start; } h6
 	{text-align: right; font-size: small; justify-content: flex-end;}
 	.card-title { border-radius: 10px; }
 </style>
+<div>
+
+</div>
+{{#if count}}
 <div class="container-fluid">
 	{{#each posts as |post| }}
 		{{> post this}}
@@ -20,29 +17,33 @@
 	{{#each comments as |comment|}}
 		<div class="card comment">
 			<div class="card-body">
-				<div class="row card-title bg-dark">
-					<h5 class="col comment-title font-weight-bold text-light">
-						From
-						{{comment.post.title}}
-					</h5>
+				<div class="row card-title">
 					<h6
-						class="comment-user comment-time col font-weight-light text-muted"
+						class="comment-user comment-time col font-weight-light text-dark"
 					>
-						Posted by
-						{{comment.user.name}}
-						on
-						{{comment.updatedAt}}
+						Commented By {{comment.user.name}} on {{comment.updatedAt}}
 					</h6>
 				</div>
 				<div class="comment-text">
 					<p class="card-text">
 						{{comment.content}}
 					</p>
-					<a href="#" class="card-link">
-						View Post
+					<a href="/api/posts/{{comment.post_id}}" class="card-link btn btn-warning font-weight-light">
+						View comment on "{{comment.post.title}}"
 					</a>
 				</div>
 			</div>
 		</div>
 	{{/each}}
 </div>
+{{else}}
+	<div class="alert alert-primary alert-dismissible fade show" role="alert">
+		You have not made any posts or comments. Create a post or comment on a post and see your community contributions here!
+		<button
+			type="button"
+			class="btn-close"
+			data-bs-dismiss="alert"
+			aria-label="Close"
+		></button>
+	</div>
+{{/if}}

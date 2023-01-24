@@ -1,7 +1,22 @@
-<div class="comments card">
-	<ul class="comment-list list-group list-group-flush">
-		{{#each this as |comment|}}
-			<li class="list-group-item comment"> {{comment.content}}</li>
-		{{/each}}
-	</ul>
+<p>
+	<button
+		class="btn btn-warning"
+		type="button"
+		data-bs-toggle="collapse"
+		data-bs-target="#comment-collapse-{{this.id}}"
+		aria-expanded="false"
+		aria-controls="comment-collapse-{{this.id}}"
+	>
+		View Comments
+	</button>
+</p>
+<div class="collapse" id="comment-collapse-{{this.id}}">
+	<div class="comments card">
+		<ul class="comment-list list-group list-group-flush card-body">
+			{{#each this.comments as |comment|}}
+				<li class="list-group-item comment card-text">
+					{{comment.content}}</li>
+			{{/each}}
+		</ul>
+	</div>
 </div>

@@ -5,11 +5,11 @@ import Comment from "./comment";
 // Post - User relationship
 User.hasMany(Post, {
 	onDelete: "CASCADE",
-	foreignKey: "owner_id",
+	foreignKey: "user_id",
 });
 
 Post.belongsTo(User, {
-	foreignKey: "owner_id",
+	foreignKey: "user_id",
 });
 
 // Post - Comment Relationship

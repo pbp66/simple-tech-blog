@@ -1,6 +1,7 @@
 import express from "express";
 const router = new express.Router();
 import { Comment, Post, User } from "../../models";
+import sequelize from "../../config/connection";
 
 router.get("/", async (req, res) => {
 	try {
@@ -22,6 +23,38 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
 	try {
+		const postData = await Post.findAll({
+			attributes: {
+				include: [
+					"id",
+					"title",
+					"content",
+					[
+						sequelize.fn(
+							"DATE_FORMAT",
+							sequelize.col("post.updated_at"),
+							"%m/%d/%Y %h:%i %p"
+						),
+						"updatedAt",
+					],
+				],
+			},
+			where: { id: req.params.id },
+			include: [
+				{
+					model: Comment,
+					order: [["updatedAt", "DESC"]],
+					where: { post_id: req.params.id },
+				},
+			],
+		});
+
+		const post = postData.map((element) => element.get({ plain: true }))[0];
+
+		res.render("post", {
+			post,
+			logged_in: req.session.logged_in,
+		});
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(`<h1>500 Internal Server Error</h1>`);

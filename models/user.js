@@ -25,12 +25,13 @@ User.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		email: {
+		username: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			unique: true,
 			validate: {
-				isEmail: true,
+				is: /^[a-zA-Z\d_-]+$/, // Match lowercase, uppercase, 0-9, _, and -
+				len: [4, 14],
 			},
 		},
 		password: {

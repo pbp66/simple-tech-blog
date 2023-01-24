@@ -29,6 +29,11 @@ Post.init(
 				key: "id",
 			},
 		},
+		edit_status: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: false,
+		},
 	},
 	{
 		sequelize,

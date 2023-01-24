@@ -2,20 +2,16 @@ import express from "express";
 const router = new express.Router();
 import { User } from "../../models";
 
-// TODO: Refactor for my assignment compared to the class provided example
-
 router.post("/login", async (req, res) => {
 	try {
-		console.log(req);
-
-		// Find the user who matches the posted e-mail address
+		// Find the user who matches the posted username
 		const userData = await User.findOne({
-			where: { email: req.body.email },
+			where: { username: req.body.username },
 		});
 
 		if (!userData) {
 			res.status(400).json({
-				message: "Incorrect email or password, please try again",
+				message: "Incorrect username or password, please try again",
 			});
 			return;
 		}
@@ -25,7 +21,7 @@ router.post("/login", async (req, res) => {
 
 		if (!validPassword) {
 			res.status(400).json({
-				message: "Incorrect email or password, please try again",
+				message: "Incorrect username or password, please try again",
 			});
 			return;
 		}
@@ -45,10 +41,10 @@ router.post("/login", async (req, res) => {
 router.post("/signup", async (req, res) => {
 	try {
 		const userData = await User.findOne({
-			where: { email: req.body.email },
+			where: { username: req.body.username },
 		});
 		if (userData) {
-			res.status(400).json({ message: "Email already exists" });
+			res.status(400).json({ message: "Username already exists" });
 		}
 
 		const newUserData = await User.create(req.body);

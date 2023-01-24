@@ -2,7 +2,7 @@
 	<div class="card-body">
 		<div class="row card-title bg-dark">
 			<h5 class="col post-title font-weight-bold text-light">
-				<a href="#" class="btn btn-outline-warning">{{ this.title }}</a> 
+				<a href="/api/posts/{{ this.id }}" class="btn btn-outline-warning">{{ this.title }}</a> 
 			</h5>
 			<h6 class="post-user post-time col font-weight-light text-muted">
 				{{! Post data: user, time-date}}
@@ -14,7 +14,7 @@
 			<p class="card-text">{{ this.content }}</p>
 		</div>
 		{{!-- Create to a drop down button to view comments --}}
-		{{> comment this.comments}}
+		{{> comment this}}
 
 	</div>
 </div>
