@@ -1,13 +1,13 @@
 const loginFormHandler = async (event) => {
 	event.preventDefault();
 
-	const email = document.querySelector("#email-login").value.trim();
+	const username = document.querySelector("#username-login").value.trim();
 	const password = document.querySelector("#password-login").value.trim();
 
 	// Form Entry Validation
 	let alertMessage = "";
-	if (!email) {
-		alertMessage += "Missing email\n";
+	if (!username) {
+		alertMessage += "Missing username\n";
 	}
 	if (!password) {
 		alertMessage += "Missing password\n";
@@ -19,7 +19,7 @@ const loginFormHandler = async (event) => {
 		// TODO: Implement error handling for bad requests
 		const response = await fetch("/api/users/login", {
 			method: "POST",
-			body: JSON.stringify({ email, password }),
+			body: JSON.stringify({ username, password }),
 			headers: { "Content-Type": "application/json" },
 		});
 
@@ -39,7 +39,7 @@ const signupFormHandler = async (event) => {
 	event.preventDefault();
 
 	const name = document.querySelector("#name-signup").value.trim();
-	const email = document.querySelector("#email-signup").value.trim();
+	const email = document.querySelector("#username-signup").value.trim();
 	const password = document.querySelector("#password-signup").value.trim();
 	const confirmPassword = document
 		.querySelector("#confirmPassword-signup")
@@ -50,8 +50,8 @@ const signupFormHandler = async (event) => {
 	if (!name) {
 		alertMessage += "Missing name\n";
 	}
-	if (!email) {
-		alertMessage += "Missing email\n";
+	if (!username) {
+		alertMessage += "Missing username\n";
 	}
 	if (!password) {
 		alertMessage += "Missing password\n";
@@ -69,7 +69,7 @@ const signupFormHandler = async (event) => {
 		// TODO: Implement error handling for bad requests
 		const response = await fetch("/api/users/signup", {
 			method: "POST",
-			body: JSON.stringify({ name, email, password }),
+			body: JSON.stringify({ name, username, password }),
 			headers: { "Content-Type": "application/json" },
 		});
 
