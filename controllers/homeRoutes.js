@@ -53,9 +53,17 @@ router.get("/", async (req, res) => {
 
 		const posts = postData.map((element) => element.get({ plain: true }));
 
+		let user;
+		if (req.session.logged_in) {
+			user = req.session.username;
+		} else {
+			user = undefined;
+		}
+
 		res.render("home", {
 			posts,
 			logged_in: req.session.logged_in,
+			user,
 		});
 	} catch (err) {
 		console.error(err);
