@@ -1,23 +1,25 @@
-<div class="card post">
-	<a class="btn btn-outline-primary" href="/api/posts/{{this.id}}">
-		<div class="card-body">
-			<div class="row card-title bg-dark">
-				<h5 class="col post-title font-weight-bold text-light">
-					<span class="btn btn-primary"> {{this.title}}</span>
+<div class="post btn btn-outline-primary p-0 m-2" id="post-{{this.id}}" role="button">
+	<div class="card p-0 m-0 border-0">
+		<div class="card-header p-0 m-0">
+			<h6 class="font-weight-light text-muted py-1 my-0">
+				Posted by
+				{{this.user.username}}
+				on
+				{{this.updatedAt}}
+			</h6></div>
+		<div class="card-body px-1 py-0 m-1">
+			<div class="card-title">
+				<h5
+					class="post-title font-weight-bold text-primary p-0 mx-1 my-0 border-bottom border-primary rounded-0 border-opacity-75"
+				>{{this.title}}
 				</h5>
-				<h6
-					class="post-user post-time col font-weight-light text-muted"
-				>
-					Posted by
-					{{this.user.username}}
-					on
-					{{this.updatedAt}}
-				</h6>
 			</div>
-			<div class="post-text">
-				<p class="card-text">{{this.content}}</p>
+			<div class="post-text px-2 py-0">
+				<p class="card-text text-secondary">{{this.content}}</p>
 			</div>
+		</div>
+		<div class="card-footer row m-0 p-2">
 			{{> comment this}}
 		</div>
-	</a>
+	</div>
 </div>

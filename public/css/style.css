@@ -1,0 +1,13 @@
+/* Transformation Tutorial Source: https://techstacker.com/how-to-make-elements-zoom-on-hover-with-css/ */
+
+.post {
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+	transition: transform 0.3s, -webkit-transform 0.3s; /* Animation */
+}
+
+.post:hover {
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
+}
