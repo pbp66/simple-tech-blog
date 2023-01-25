@@ -26,5 +26,15 @@
 			</div>
 			{{> comment post}}
 		</div>
+		{{#if owner}}
+		<div class="card-footer">
+			<button class="btn btn-outline-primary">
+				Update Post
+			</button>
+			<button class="btn btn-outline-danger">
+				Delete Post
+			</button>
+		</div>
+		{{/if}}
 	</div>
 </div>
