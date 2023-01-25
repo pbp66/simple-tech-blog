@@ -13,21 +13,19 @@ main {
 
 .post {
 	width: 100%;
-	-moz-transition: transform 0.3s, -webkit-transform 0.3s,
-		margin 0.3s ease-out;
-	-webkit-transition: transform 0.3s, -webkit-transform 0.3s,
-		margin 0.3s ease-out;
-	transition: transform 0.3s, -webkit-transform 0.3s, margin 0.3s ease-out; /* Animation */
+	transition: transform 0.3s, margin 0.3s ease-in-out; /* Animation */
 	z-index: -10;
 	position: static;
 	padding: 0px;
 	margin: auto;
-	margin-top: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .post:hover {
-	-webkit-transform: scale(1.1);
-	transform: scale(1.1);
+	/* -webkit-transform: scale(1.1);
+	transform: scale(1.1); */
+	transition: transform 0.3s, margin 0.3s ease-out;
 	width: 100%;
 	z-index: 10;
 	margin: 50px 0px;
