@@ -9,10 +9,12 @@ main {
 	width: 100%;
 }
 
-/* Transformation Tutorial Source: https://techstacker.com/how-to-make-elements-zoom-on-hover-with-css/ */
-
 .post {
 	width: 100%;
+}
+
+/* Transformation Tutorial Source: https://techstacker.com/how-to-make-elements-zoom-on-hover-with-css/ */
+.card-transform {
 	transition: transform 0.3s, margin 0.3s ease-in-out; /* Animation */
 	z-index: -10;
 	position: static;
@@ -22,14 +24,19 @@ main {
 	margin-bottom: 10px;
 }
 
-.post:hover {
-	/* -webkit-transform: scale(1.1);
-	transform: scale(1.1); */
+.card-transform:hover {
+	-webkit-transform: scale(1.05);
+	transform: scale(1.05);
 	transition: transform 0.3s, margin 0.3s ease-out;
 	width: 100%;
 	z-index: 10;
 	margin: 50px 0px;
 	position: relative;
+}
+
+.post-group-header {
+	width: 100%;
+	font-size: 20px;
 }
 
 .comment-header {

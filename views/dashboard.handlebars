@@ -46,13 +46,19 @@
 </div>
 {{#if count}}
 	<div class="container-fluid">
+		<div class="post-group-header text-primary text-center p-1 m-0">
+			Posts
+		</div>
 		{{#each posts as |post|}}
 			{{> post this}}
 		{{/each}}
 	</div>
-	<div class="container-fluid">
+	<div class="container-fluid mt-2">
+		<div class="post-group-header text-primary text-center p-1 m-0">
+			Comments
+		</div>
 		{{#each comments as |comment|}}
-			<div class="card comment">
+			<div class="card comment card-transform ">
 				<div class="card-body">
 					<div class="row card-title">
 						<h6
