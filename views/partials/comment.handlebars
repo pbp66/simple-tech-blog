@@ -22,8 +22,8 @@
 		Create Comment
 	</button>
 </p>
-<div class="collapse m-1 p-2" id="comment-collapse-{{this.id}}">
-	<div class="comments card">
+<div class="collapse m-0 p-0" id="comment-collapse-{{this.id}}">
+	<div class="comments card m-1 p-2">
 		<ul class="comment-list list-group list-group-flush p-0 m-0">
 			{{#each this.comments as |comment|}}
 				<li class="list-group-item comment p-2 m-0">
@@ -41,8 +41,8 @@
 		</ul>
 	</div>
 </div>
-<div class="collapse m-1 p-2" id="create-comment-{{this.id}}">
-	<form>
+<div class="collapse m-0 p-0" id="create-comment-{{this.id}}">
+	<form class="m-1 p-2">
 		<div class="mb-3">
 			<label
 				for="new-comment"

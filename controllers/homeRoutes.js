@@ -147,6 +147,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
 			comments,
 			current_user: req.session.user_id,
 			logged_in: req.session.logged_in,
+			user: req.session.username,
 		});
 	} catch (err) {
 		console.error(err);
