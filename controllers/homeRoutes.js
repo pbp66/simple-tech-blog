@@ -24,7 +24,30 @@ router.get("/", async (req, res) => {
 					],
 				],
 			},
-			include: [User, Comment],
+			include: [
+				User,
+				{
+					model: Comment,
+					attributes: {
+						include: [
+							"id",
+							"content",
+							"post_id",
+							"edit_status",
+							[
+								sequelize.fn(
+									"DATE_FORMAT",
+									sequelize.col("post.updated_at"),
+									"%m/%d/%Y %h:%i %p"
+								),
+								"updatedAt",
+							],
+						],
+					},
+					include: [User],
+					order: [["updatedAt", "DESC"]],
+				},
+			],
 			order: [["updatedAt", "DESC"]],
 		});
 

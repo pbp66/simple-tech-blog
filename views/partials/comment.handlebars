@@ -24,10 +24,19 @@
 </p>
 <div class="collapse m-1 p-2" id="comment-collapse-{{this.id}}">
 	<div class="comments card">
-		<ul class="comment-list list-group list-group-flush card-body">
+		<ul class="comment-list list-group list-group-flush p-0 m-0">
 			{{#each this.comments as |comment|}}
-				<li class="list-group-item comment card-text">
-					{{comment.content}}</li>
+				<li class="list-group-item comment p-2 m-0">
+					<div class="text-muted text-end comment-header p-1 m-0">
+						Comment By
+						{{comment.user.username}}
+						on
+						{{comment.updatedAt}}
+					</div>
+					<div class="text-start">
+						{{comment.content}}
+					</div>
+				</li>
 			{{/each}}
 		</ul>
 	</div>
@@ -35,7 +44,11 @@
 <div class="collapse m-1 p-2" id="create-comment-{{this.id}}">
 	<form>
 		<div class="mb-3">
-			<label for="new-comment" class="form-label">Comment</label>
+			<label
+				for="new-comment"
+				class="form-label text-dark text-start px-1 py-0 m-0"
+				style="width: 100%;"
+			>Comment</label>
 			<textarea
 				class="form-control"
 				name="new-comment"
