@@ -97,21 +97,19 @@ function getPostId(element) {
 }
 
 function makePostEditable(id) {
-	const postBody = document.getElementById(`post-body-${id}`);
 	const postTitle = document.getElementById(`post-title-${id}`);
 	const postText = document.getElementById(`post-text-${id}`);
-	const postTitleParent = postTitle.parentElement;
-	const postTextParent = postText.parentElement;
-
 	const editablePost = createPostForm(
 		id,
 		postTitle.innerText,
 		postText.innerText
 	);
 
-	postTitleParent.innerHTML = "";
+	const postBody = document.getElementById(`post-body-${id}`);
+	postBody.innerHTML = "";
 
-	postTextParent.innerHTML = "";
+	console.log(editablePost);
+	postBody.appendChild(editablePost);
 }
 
 function createPostForm(postId, title, content) {
@@ -150,7 +148,7 @@ function createPostForm(postId, title, content) {
                 </button>
             </div>
         </form>`
-	);
+	)[0];
 }
 
 const commentSubmitHandler = (event) => {
