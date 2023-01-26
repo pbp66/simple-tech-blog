@@ -1,4 +1,4 @@
-<p class="col p-0 pb-2 m-0">
+<p class="col card-footer-button">
 	<button
 		class="btn btn-info"
 		type="button"
@@ -10,7 +10,7 @@
 		View Comments
 	</button>
 </p>
-<p class="col p-0 pb-2 m-0">
+<p class="col card-footer-button">
 	<button
 		class="btn btn-outline-primary"
 		type="button"
@@ -23,18 +23,22 @@
 	</button>
 </p>
 <div class="collapse m-0 p-0" id="comment-collapse-{{this.id}}">
-	<div class="comments card m-1 p-2">
+	<div class="comments card border-0">
 		<ul class="comment-list list-group list-group-flush p-0 m-0">
 			{{#each this.comments as |comment|}}
-				<li class="list-group-item comment p-2 m-0">
-					<div class="text-muted text-end comment-header p-1 m-0">
-						Comment By
-						{{comment.user.username}}
-						on
-						{{comment.updatedAt}}
-					</div>
-					<div class="text-start">
-						{{comment.content}}
+				<li class="list-group-item m-0 p-0">
+					<div class="comment m-0 p-0">
+						<div
+							class="card-header text-muted text-end comment-header rounded-0 px-2"
+						>
+							Comment By
+							{{comment.user.username}}
+							on
+							{{comment.updatedAt}}
+						</div>
+						<div class="text-start comment-text">
+							{{comment.content}}
+						</div>
 					</div>
 				</li>
 			{{/each}}

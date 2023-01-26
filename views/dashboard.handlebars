@@ -7,7 +7,7 @@
 <div class="create-post-button">
 	<p>
 		<button
-			class="btn btn-primary"
+			class="btn btn-outline-primary"
 			type="button"
 			data-bs-toggle="collapse"
 			data-bs-target="#new-post-collapse"
@@ -18,28 +18,32 @@
 		</button>
 	</p>
 	<div class="collapse" id="new-post-collapse">
-		<div class="create-post card">
+		<div class="create-post card m-1 border-primary">
 			<form>
-				<div class="mb-3">
-					<label for="post-title" class="form-label">Title</label>
+				<div class="m-0">
+					<label for="post-title" class="form-label card-header width-100 border-0 rounded-top p-2 m-0 fs-5">Title</label>
 					<input
 						type="text"
-						class="form-control"
+						class="form-control border-0 rounded-0 border-top border-bottom px-2 py-1 m-0 fs-6"
 						id="post-title"
 						aria-describedby="post-title-help"
 					/>
-					<div id="post-title-help" class="form-text">Label your blog
+					<div id="post-title-help" class="form-text px-2 py-1 m-0">Label your blog
 						post with a creative title!</div>
 				</div>
-				<div class="mb-3">
-					<label for="post-body" class="form-label">Content</label>
+				<div class="m-0">
+					<label for="post-body" class="form-label card-header width-100 border-bottom-0 p-2 m-0 fs-5">Content</label>
 					<textarea
-						class="form-control"
+						class="form-control rounded-0"
 						name="post-body"
 						id="post-body"
 					></textarea>
 				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<div class="card-footer m-0 p-2 border-top-0">
+					<button type="submit" class="btn btn-primary card-footer-button">
+						Submit
+					</button>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -58,22 +62,30 @@
 			Comments
 		</div>
 		{{#each comments as |comment|}}
-			<div class="card comment card-transform ">
-				<div class="card-body">
-					<div class="row card-title">
+			<div
+				class="comment btn btn-outline-primary card-transform"
+				id="comment-{{comment.id}}"
+				role="button"
+			>
+				<div class="card m-0 p-0 border-0">
+					<div class="comment-header card-header p-0 m-0">
 						<h6
-							class="comment-user comment-time col font-weight-light text-dark"
+							class="font-weight-light text-muted py-1 my-0"
 						>
 							Commented By
 							{{comment.user.name}}
 							on
 							{{comment.updatedAt}}
-						</h6>
+						</h6></div>
+					<div class="card-body px-1 py-0 m-1">
+						<div class="comment-text">
+							<p class="card-text text-dark px-2 py-0 text-start">
+								{{comment.content}}
+							</p>
+
+						</div>
 					</div>
-					<div class="comment-text">
-						<p class="card-text">
-							{{comment.content}}
-						</p>
+					<div class="card-footer m-0 p-2">
 						<a
 							href="/api/posts/{{comment.post_id}}"
 							class="card-link btn btn-primary font-weight-light"

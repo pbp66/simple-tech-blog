@@ -3,8 +3,8 @@
 	id="post-{{this.id}}"
 	role="button"
 >
-	<div class="card p-0 m-0 border-0">
-		<div class="card-header p-0 m-0">
+	<div class="card border-0">
+		<div class="card-header">
 			<h6 class="font-weight-light text-muted py-1 my-0">
 				Posted by
 				{{this.user.username}}
@@ -19,10 +19,10 @@
 				</h5>
 			</div>
 			<div class="post-text px-2 py-0">
-				<p class="card-text text-dark">{{this.content}}</p>
+				<p class="card-text text-dark text-start">{{this.content}}</p>
 			</div>
 		</div>
-		<div class="card-footer row m-1 p-2">
+		<div class="card-footer row m-0 p-0">
 			{{> comment this}}
 		</div>
 	</div>
