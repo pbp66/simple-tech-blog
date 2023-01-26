@@ -2,12 +2,18 @@ import express from "express";
 const router = new express.Router();
 import { Comment, Post, User } from "../../models";
 import sequelize from "../../config/connection";
+import {
+	postAttributes,
+	commentAttributes,
+	postIncludes,
+} from "../../utils/sequelizeAttributes";
 
 router.get("/", async (req, res) => {
 	try {
 		const allPostsData = await Post.findAll({
-			include: [Comment, User],
-			order: [["updateAt", "DESC"]],
+			attributes: postAttributes,
+			include: postIncludes,
+			order: [["updatedAt", "DESC"]],
 		});
 
 		const allPosts = allPostsData.map((element) =>
@@ -22,46 +28,16 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-	let owner = false;
 	try {
 		const postData = await Post.findAll({
-			attributes: {
-				include: [
-					"id",
-					"title",
-					"content",
-					[
-						sequelize.fn(
-							"DATE_FORMAT",
-							sequelize.col("post.updated_at"),
-							"%m/%d/%Y %h:%i %p"
-						),
-						"updatedAt",
-					],
-				],
-			},
+			attributes: postAttributes,
 			where: { id: req.params.id },
-			include: [
-				{
-					model: Comment,
-					order: [["updatedAt", "DESC"]],
-					where: { post_id: req.params.id },
-				},
-				User,
-			],
+			include: postIncludes,
 		});
 
 		const post = postData.map((element) => element.get({ plain: true }))[0];
 
-		if (post.user_id === req.session.user_id) {
-			owner = true;
-		}
-
-		res.render("post", {
-			owner,
-			post,
-			logged_in: req.session.logged_in,
-		});
+		res.status(201).json(post).send();
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(`<h1>500 Internal Server Error</h1>`);

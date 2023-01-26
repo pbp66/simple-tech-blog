@@ -19,6 +19,9 @@
 	</p>
 	<div class="collapse" id="new-post-collapse">
 		<div class="create-post card m-1 border-primary">
+			<div class="text-primary fs-4 text-center py-1 m-0">
+				New Post
+			</div>
 			<form>
 				<div class="m-0">
 					<label for="post-title" class="form-label card-header width-100 border-0 rounded-top p-2 m-0 fs-5">Title</label>
@@ -33,7 +36,7 @@
 				</div>
 				<div class="m-0">
 					<label for="post-body" class="form-label card-header width-100 border-bottom-0 p-2 m-0 fs-5">Content</label>
-					<textarea
+					<textarea data-expandable
 						class="form-control rounded-0"
 						name="post-body"
 						id="post-body"
@@ -87,7 +90,7 @@
 					</div>
 					<div class="card-footer m-0 p-2">
 						<a
-							href="/api/posts/{{comment.post_id}}"
+							href="/post/{{comment.post_id}}"
 							class="card-link btn btn-primary font-weight-light"
 						>
 							View comment on "{{comment.post.title}}"
