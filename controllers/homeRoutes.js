@@ -1,51 +1,12 @@
 import express from "express";
-import sequelize from "../config/connection";
 const router = new express.Router();
 import { User, Post, Comment } from "../models";
 import withAuth from "../utils/auth";
-
-const postAttributes = {
-	include: [
-		"id",
-		"title",
-		"content",
-		[
-			sequelize.fn(
-				"DATE_FORMAT",
-				sequelize.col("post.updated_at"),
-				"%m/%d/%Y %h:%i %p"
-			),
-			"updatedAt",
-		],
-	],
-};
-
-const commentAttributes = {
-	include: [
-		"id",
-		"content",
-		"post_id",
-		"edit_status",
-		[
-			sequelize.fn(
-				"DATE_FORMAT",
-				sequelize.col("post.updated_at"),
-				"%m/%d/%Y %h:%i %p"
-			),
-			"updatedAt",
-		],
-	],
-};
-
-const postIncludes = [
-	User,
-	{
-		model: Comment,
-		attributes: commentAttributes,
-		include: [User],
-		order: [["updatedAt", "DESC"]],
-	},
-];
+import {
+	postAttributes,
+	commentAttributes,
+	postIncludes,
+} from "../utils/sequelizeAttributes.js";
 
 // Non-logged in users may view the homepage. They may not access a dashboard, make posts, or make comments
 router.get("/", async (req, res) => {

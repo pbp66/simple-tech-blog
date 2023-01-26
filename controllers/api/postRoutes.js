@@ -2,6 +2,11 @@ import express from "express";
 const router = new express.Router();
 import { Comment, Post, User } from "../../models";
 import sequelize from "../../config/connection";
+import {
+	postAttributes,
+	commentAttributes,
+	postIncludes,
+} from "../../utils/sequelizeAttributes";
 
 router.get("/", async (req, res) => {
 	try {
