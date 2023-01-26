@@ -107,19 +107,17 @@ function makePostEditable(id) {
 
 	const postBody = document.getElementById(`post-body-${id}`);
 	postBody.innerHTML = "";
-
-	console.log(editablePost);
 	postBody.appendChild(editablePost);
 }
 
 function createPostForm(postId, title, content) {
 	return $(
 		`<form id="update-post-form">
-            <div class="card-title m-0">
-                <h5 class="post-title py-0 px-4 m-0" id="post-title-${postId}">
+            <div class="card-title">
+                <h5 class="post-title" id="post-title-${postId}">
                     <input
                         type="text"
-                        class="form-control px-2 py-1 m-0 fs-6"
+                        class="form-control border-0 fs-4 post-title"
                         id="post-title"
                         value="${title}"
                     />
@@ -127,7 +125,7 @@ function createPostForm(postId, title, content) {
             </div>
             <div class="post-text m-0">
                 <p 
-                    class="card-text text-dark text-start py-0 px-4 m-0 mb-4" 
+                    class="card-text text-dark text-start border-0" 
                     id="post-text-${postId}"
                 >
                     <textarea
@@ -135,11 +133,12 @@ function createPostForm(postId, title, content) {
                         class="form-control px-2 py-1 m-0 fs-6"
                         name="post-body"
                         id="post-body"
-                        value="${content}"
-                    ></textarea>
+                    >
+${content}
+                    </textarea>
                 </p>
             </div>
-            <div class="card-footer row m-0 mt-2 mb-2 py-2 px-4">
+            <div class="row m-0 mt-2 mb-2 py-2 px-4">
                 <button
                     type="submit"
                     class="btn btn-outline-primary card-footer-button"
@@ -240,9 +239,9 @@ const updatePostHandler = (event) => {
 const posts = document.getElementsByClassName("post");
 if (posts.length > 0) {
 	const currentURL = new URL(location);
-
+	console.log(currentURL);
 	// If we are viewing a single post, we do not want to add event listeners. This would enable the user to click the post to view the page they are already viewing!
-	if (!currentURL.pathname.match(/(\/post\/).$/)) {
+	if (!currentURL.pathname.match(/(\/post\/)[\w]+$/)) {
 		for (const post of posts) {
 			post.addEventListener("click", viewPostHandler);
 		}
