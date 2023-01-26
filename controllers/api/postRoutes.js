@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+	let owner = false;
 	try {
 		const postData = await Post.findAll({
 			attributes: {
@@ -46,12 +47,18 @@ router.get("/:id", async (req, res) => {
 					order: [["updatedAt", "DESC"]],
 					where: { post_id: req.params.id },
 				},
+				User,
 			],
 		});
 
 		const post = postData.map((element) => element.get({ plain: true }))[0];
 
+		if (post.user_id === req.session.user_id) {
+			owner = true;
+		}
+
 		res.render("post", {
+			owner,
 			post,
 			logged_in: req.session.logged_in,
 		});

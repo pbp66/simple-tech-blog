@@ -1,6 +1,6 @@
-<p>
+<p class="col card-footer-button">
 	<button
-		class="btn btn-warning"
+		class="btn btn-info"
 		type="button"
 		data-bs-toggle="collapse"
 		data-bs-target="#comment-collapse-{{this.id}}"
@@ -10,13 +10,55 @@
 		View Comments
 	</button>
 </p>
-<div class="collapse" id="comment-collapse-{{this.id}}">
-	<div class="comments card">
-		<ul class="comment-list list-group list-group-flush card-body">
+<p class="col card-footer-button">
+	<button
+		class="btn btn-outline-primary"
+		type="button"
+		data-bs-toggle="collapse"
+		data-bs-target="#create-comment-{{this.id}}"
+		aria-expanded="false"
+		aria-controls="create-comment-{{this.id}}"
+	>
+		Create Comment
+	</button>
+</p>
+<div class="collapse m-0 p-0" id="comment-collapse-{{this.id}}">
+	<div class="comments card border-0">
+		<ul class="comment-list list-group list-group-flush p-0 m-0">
 			{{#each this.comments as |comment|}}
-				<li class="list-group-item comment card-text">
-					{{comment.content}}</li>
+				<li class="list-group-item m-0 p-0">
+					<div class="comment m-0 p-0">
+						<div
+							class="card-header text-muted text-end comment-header rounded-0 px-2"
+						>
+							Comment By
+							{{comment.user.username}}
+							on
+							{{comment.updatedAt}}
+						</div>
+						<div class="text-start comment-text">
+							{{comment.content}}
+						</div>
+					</div>
+				</li>
 			{{/each}}
 		</ul>
 	</div>
+</div>
+<div class="collapse m-0 p-0" id="create-comment-{{this.id}}">
+	<form class="m-1 p-2">
+		<div class="mb-3">
+			<label
+				for="new-comment"
+				class="form-label text-dark text-start px-1 py-0 m-0"
+				style="width: 100%;"
+			>Comment</label>
+			<textarea
+				class="form-control"
+				name="new-comment"
+				id="new-comment"
+			></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
 </div>

@@ -6,5 +6,35 @@
 	.card-title { border-radius: 10px; }
 </style>
 <div class="container-fluid">
-	{{> post post}}
+	<div class="card post btn-outline-primary">
+		<div class="card-body">
+			<div class="row card-title bg-dark">
+				<h5 class="col post-title font-weight-bold text-light">
+					<span class="btn btn-primary"> {{post.title}}</span>
+				</h5>
+				<h6
+					class="post-user post-time col font-weight-light text-muted"
+				>
+					Posted by
+					{{post.user.username}}
+					on
+					{{post.updatedAt}}
+				</h6>
+			</div>
+			<div class="post-text">
+				<p class="card-text">{{post.content}}</p>
+			</div>
+			{{> comment post}}
+		</div>
+		{{#if owner}}
+		<div class="card-footer">
+			<button class="btn btn-outline-primary">
+				Update Post
+			</button>
+			<button class="btn btn-outline-danger">
+				Delete Post
+			</button>
+		</div>
+		{{/if}}
+	</div>
 </div>

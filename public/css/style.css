@@ -1,0 +1,83 @@
+html,
+body,
+main {
+	width: 100%;
+	height: 100%;
+}
+
+label {
+	width: 100%;
+}
+
+.blog {
+	width: 100%;
+}
+
+.post,
+.comment {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+.card {
+	padding: 0px;
+	margin: 0px;
+	border: 1px solid;
+}
+
+.card-header {
+	padding: 0px;
+	margin: 0px;
+}
+
+/* Transformation Tutorial Source: https://techstacker.com/how-to-make-elements-zoom-on-hover-with-css/ */
+.card-transform {
+	transition: transform 0.3s, margin 0.3s ease-in-out; /* Animation */
+	z-index: -10;
+	position: static;
+	padding: 0px;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.card-transform:hover {
+	-webkit-transform: scale(1.05);
+	transform: scale(1.05);
+	transition: transform 0.3s, margin 0.3s ease-out;
+	width: 100%;
+	z-index: 10;
+	margin: 50px 0px;
+	position: relative;
+}
+
+.post-group-header {
+	width: 100%;
+	font-size: 20px;
+}
+
+.comment {
+	width: 100%;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+	border-top: solid 1px rgba(0, 0, 0, 0.175);
+}
+
+.comment-header {
+	width: 100%;
+	font-size: 12px;
+	margin: 0px;
+	padding: 4px;
+	border: none;
+}
+
+.comment-text {
+	padding: 0px 8px 4px 8px;
+}
+
+.card-footer-button {
+	padding: 8px;
+	margin: 0px;
+}

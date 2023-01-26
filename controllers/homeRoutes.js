@@ -24,15 +24,46 @@ router.get("/", async (req, res) => {
 					],
 				],
 			},
-			include: [User, Comment],
+			include: [
+				User,
+				{
+					model: Comment,
+					attributes: {
+						include: [
+							"id",
+							"content",
+							"post_id",
+							"edit_status",
+							[
+								sequelize.fn(
+									"DATE_FORMAT",
+									sequelize.col("post.updated_at"),
+									"%m/%d/%Y %h:%i %p"
+								),
+								"updatedAt",
+							],
+						],
+					},
+					include: [User],
+					order: [["updatedAt", "DESC"]],
+				},
+			],
 			order: [["updatedAt", "DESC"]],
 		});
 
 		const posts = postData.map((element) => element.get({ plain: true }));
 
+		let user;
+		if (req.session.logged_in) {
+			user = req.session.username;
+		} else {
+			user = undefined;
+		}
+
 		res.render("home", {
 			posts,
 			logged_in: req.session.logged_in,
+			user,
 		});
 	} catch (err) {
 		console.error(err);
@@ -116,6 +147,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
 			comments,
 			current_user: req.session.user_id,
 			logged_in: req.session.logged_in,
+			user: req.session.username,
 		});
 	} catch (err) {
 		console.error(err);
