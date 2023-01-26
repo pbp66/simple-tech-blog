@@ -108,6 +108,16 @@ function makePostEditable(id) {
 	const postBody = document.getElementById(`post-body-${id}`);
 	postBody.innerHTML = "";
 	postBody.appendChild(editablePost);
+
+	const submitPostUpdateForm = document.getElementById("update-post-form");
+	const cancelPostUpdateButton =
+		document.getElementById("cancel-post-update");
+
+	submitPostUpdateForm.addEventListener("submit", submittedPostUpdateHandler);
+	cancelPostUpdateButton.addEventListener(
+		"click",
+		cancelledPostUpdateHandler
+	);
 }
 
 function createPostForm(postId, title, content) {
@@ -130,7 +140,7 @@ function createPostForm(postId, title, content) {
                 >
                     <textarea
                         data-expandable
-                        class="form-control px-2 py-1 m-0 fs-6"
+                        class="form-control border-primary px-2 py-1 m-0 fs-6"
                         name="post-body"
                         id="post-body"
                     >
@@ -139,11 +149,19 @@ ${content}
                 </p>
             </div>
             <div class="row m-0 mt-2 mb-2 py-2 px-4">
+                            <button
+                    type="button"
+                    class="btn btn-outline-danger cancel-post-update col mx-3"
+                    id="cancel-post-update"
+                >
+                    Cancel
+                </button>
                 <button
                     type="submit"
-                    class="btn btn-outline-primary card-footer-button"
+                    class="btn btn-outline-primary submit-post-update col mx-3"
+                    id="submit-post-update"
                 >
-                    Submit
+                    Save
                 </button>
             </div>
         </form>`
@@ -231,17 +249,28 @@ const deletePostHandler = (event) => {
 
 const updatePostHandler = (event) => {
 	event.preventDefault();
+	event.stopPropagation();
 	const postId = event.target.id.split("-")[2];
-
 	makePostEditable(postId);
+};
+
+const submittedPostUpdateHandler = (event) => {
+	event.preventDefault();
+	console.log("submit updated post");
+	console.log(event.target);
+};
+
+const cancelledPostUpdateHandler = (event) => {
+	event.preventDefault();
+	console.log("cancel updated post");
+	console.log(event.target);
 };
 
 const posts = document.getElementsByClassName("post");
 if (posts.length > 0) {
 	const currentURL = new URL(location);
-	console.log(currentURL);
 	// If we are viewing a single post, we do not want to add event listeners. This would enable the user to click the post to view the page they are already viewing!
-	if (!currentURL.pathname.match(/(\/post\/)[\w]+$/)) {
+	if (!currentURL.pathname.match(/\/post\//)) {
 		for (const post of posts) {
 			post.addEventListener("click", viewPostHandler);
 		}
