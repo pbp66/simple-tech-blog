@@ -24,7 +24,7 @@
 </p>
 <div class="collapse m-0 p-0" id="comment-collapse-{{this.id}}">
 	<div class="comments card border-0">
-		<ul class="comment-list list-group list-group-flush p-0 m-0">
+		<ul class="comment-list list-group list-group-flush p-0 m-0" id="comment-list-{{this.id}}">
 			{{#each this.comments as |comment|}}
 				<li class="list-group-item m-0 p-0">
 					<div class="comment m-0 p-0">
@@ -46,7 +46,7 @@
 	</div>
 </div>
 <div class="collapse m-0 p-0" id="create-comment-{{this.id}}">
-	<form class="m-1 p-2">
+	<form class="m-1 p-2 submit-comment" id="new-comment-{{this.id}}">
 		<div class="mb-3">
 			<label
 				for="new-comment"
@@ -59,6 +59,10 @@
 				id="new-comment"
 			></textarea>
 		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
+		<button
+			type="submit"
+			class="btn btn-primary submit-comment-button"
+			id="submit-comment-{{this.id}}"
+		>Submit</button>
 	</form>
 </div>

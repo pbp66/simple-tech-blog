@@ -1,6 +1,7 @@
 import express from "express";
 const router = new express.Router();
 import { Comment, Post, User } from "../../models";
+import { DateTime } from "luxon";
 
 router.get("/:post_id", async (req, res) => {
 	try {
@@ -21,7 +22,16 @@ router.get("/:post_id", async (req, res) => {
 
 router.post("/:post_id", async (req, res) => {
 	try {
-		const newComment = await Comment.create(req.body);
+		const newCommentData = {};
+		Object.assign(newCommentData, req.body);
+		newCommentData["user_id"] = req.session.user_id;
+
+		const newComment = await Comment.create(newCommentData);
+		newComment.dataValues["username"] = req.session.username;
+		newComment.dataValues.updatedAt = DateTime.fromJSDate(
+			newComment.dataValues.updatedAt
+		).toFormat("MM/dd/yyyy hh:mm a");
+
 		res.status(201).json(newComment).send();
 	} catch (err) {
 		console.error(err);
