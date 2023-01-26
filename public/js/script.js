@@ -85,6 +85,17 @@ function addAlert(alertType, postId, message) {
 	postFooter.insertBefore(alertDiv, postFooterForm);
 }
 
+function getPostId(element) {
+	let id;
+	for (const elementClass of element.classList) {
+		if (elementClass === "post") {
+			id = element.id.split("-")[1];
+			return id;
+		}
+	}
+	return getPostId(element.parentElement);
+}
+
 const commentSubmitHandler = (event) => {
 	event.preventDefault();
 	const newComment = {
@@ -135,6 +146,12 @@ const postSubmitHandler = (event) => {
 
 const viewPostHandler = (event) => {
 	event.preventDefault();
+	const validClick = !["TEXTAREA", "BUTTON"].includes(event.target.tagName);
+	if (validClick) {
+		const url = new URL(location);
+		url.pathname = `/post/${getPostId(event.target)}`;
+		location = url;
+	}
 };
 
 const commentSubmissionForms =
@@ -154,7 +171,6 @@ if (posts.length > 0) {
 
 	// If we are viewing a single post, we do not want to add event listeners. This would enable the user to click the post to view the page they are already viewing!
 	if (!currentURL.pathname.match(/(\/post\/).$/)) {
-		console.log("Adding post event listeners");
 		for (const post of posts) {
 			post.addEventListener("click", viewPostHandler);
 		}
