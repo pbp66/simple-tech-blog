@@ -25,8 +25,8 @@ router.post("/:post_id", async (req, res) => {
 		const newCommentData = {};
 		Object.assign(newCommentData, req.body);
 		newCommentData["user_id"] = req.session.user_id;
-
 		const newComment = await Comment.create(newCommentData);
+		
 		newComment.dataValues["username"] = req.session.username;
 		newComment.dataValues.updatedAt = DateTime.fromJSDate(
 			newComment.dataValues.updatedAt

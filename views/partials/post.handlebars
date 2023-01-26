@@ -4,22 +4,25 @@
 	role="button"
 >
 	<div class="card border-0">
-		<div class="card-header">
-			<h6 class="font-weight-light text-muted py-1 my-0">
+		<div class="card-header m-0 py-2 px-4">
+			<h6 class="font-weight-light text-muted p-0 m-0">
 				Posted by
 				{{this.user.username}}
 				on
 				{{this.updatedAt}}
-			</h6></div>
-		<div class="card-body px-1 py-0 m-1">
+			</h6>
+		</div>
+		<div class="card-body m-0 py-2 px-4">
 			<div class="card-title">
 				<h5
-					class="post-title font-weight-bold text-primary p-0 mx-1 my-0 border-bottom border-primary rounded-0 border-opacity-75"
+					class="post-title"
 				>{{this.title}}
 				</h5>
 			</div>
-			<div class="post-text px-2 py-0">
-				<p class="card-text text-dark text-start">{{this.content}}</p>
+			<div class="post-text">
+				<p class="card-text text-dark text-start">
+					{{this.content}}
+				</p>
 			</div>
 		</div>
 		<div class="card-footer row m-0 p-0">
