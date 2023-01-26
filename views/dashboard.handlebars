@@ -19,31 +19,53 @@
 	</p>
 	<div class="collapse" id="new-post-collapse">
 		<div class="create-post card m-1 border-primary">
-			<div class="text-primary fs-4 text-center py-1 m-0">
+			<div class="text-primary card-header fs-4 text-center py-1 m-0">
 				New Post
 			</div>
 			<form>
 				<div class="m-0">
-					<label for="post-title" class="form-label card-header width-100 border-0 rounded-top p-2 m-0 fs-5">Title</label>
-					<input
-						type="text"
-						class="form-control border-0 rounded-0 border-top border-bottom px-2 py-1 m-0 fs-6"
-						id="post-title"
-						aria-describedby="post-title-help"
-					/>
-					<div id="post-title-help" class="form-text px-2 py-1 m-0">Label your blog
-						post with a creative title!</div>
+					<label
+						for="post-title"
+						class="form-label card-title py-2 px-0 m-0 mx-4 fs-5"
+					>
+						Title
+					</label>
+					<div class="py-0 px-4 m-0">
+						<input
+							type="text"
+							class="form-control px-0 py-1 m-0 fs-6"
+							id="post-title"
+							aria-describedby="post-title-help"
+						/>
+					</div>
+					<div
+						id="post-title-help"
+						class="form-text px-4 py-1 m-0"
+					>
+						Label your blog post with a creative title!
+					</div>
 				</div>
 				<div class="m-0">
-					<label for="post-body" class="form-label card-header width-100 border-bottom-0 p-2 m-0 fs-5">Content</label>
-					<textarea data-expandable
-						class="form-control rounded-0"
-						name="post-body"
-						id="post-body"
-					></textarea>
+					<label
+						for="post-body"
+						class="form-label card-title py-2 px-0 m-0 mx-4 fs-5"
+					>
+						Content
+					</label>
+					<div class="py-0 px-4 m-0 mb-4">
+						<textarea
+							data-expandable
+							class="form-control px-0 py-1 m-0 fs-6"
+							name="post-body"
+							id="post-body"
+						></textarea>
+					</div>
 				</div>
-				<div class="card-footer m-0 p-2 border-top-0">
-					<button type="submit" class="btn btn-primary card-footer-button">
+				<div class="card-footer row m-0 mt-2 mb-2 py-2 px-4">
+					<button
+						type="submit"
+						class="btn btn-outline-primary card-footer-button"
+					>
 						Submit
 					</button>
 				</div>
@@ -54,7 +76,7 @@
 {{#if count}}
 	<div class="container-fluid">
 		<div class="post-group-header text-primary text-center p-1 m-0">
-			Posts
+			Your Posts
 		</div>
 		{{#each posts as |post|}}
 			{{> post this}}
@@ -62,36 +84,36 @@
 	</div>
 	<div class="container-fluid mt-2">
 		<div class="post-group-header text-primary text-center p-1 m-0">
-			Comments
+			Your Comments
 		</div>
 		{{#each comments as |comment|}}
 			<div
-				class="comment btn btn-outline-primary card-transform"
+				class="comment-dashboard btn btn-outline-primary card-transform"
 				id="comment-{{comment.id}}"
 				role="button"
 			>
 				<div class="card m-0 p-0 border-0">
-					<div class="comment-header card-header p-0 m-0">
-						<h6
-							class="font-weight-light text-muted py-1 my-0"
-						>
-							Commented By
-							{{comment.user.name}}
-							on
-							{{comment.updatedAt}}
-						</h6></div>
-					<div class="card-body px-1 py-0 m-1">
-						<div class="comment-text">
-							<p class="card-text text-dark px-2 py-0 text-start">
+						<div class="card-header comment-header rounded-0">
+							<h6
+								class="font-weight-light text-muted text-end p-0 py-1 m-0"
+							>
+								Comment By
+								{{comment.user.username}}
+								on
+								{{comment.updatedAt}}
+							</h6>
+						</div>
+					<div class="card-body p-0 m-0">
+						<div class="comment-text m-0 py-2 px-4">
+							<p class="card-text text-dark p-0 m-0 text-start">
 								{{comment.content}}
 							</p>
-
 						</div>
 					</div>
-					<div class="card-footer m-0 p-2">
+					<div class="card-footer row m-0 mb-2 py-2 px-4">
 						<a
 							href="/post/{{comment.post_id}}"
-							class="card-link btn btn-primary font-weight-light"
+							class="card-link btn btn-outline-secondary font-weight-light"
 						>
 							View comment on "{{comment.post.title}}"
 						</a>

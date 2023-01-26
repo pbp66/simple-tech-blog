@@ -1,6 +1,6 @@
 <p class="col card-footer-button">
 	<button
-		class="btn btn-info"
+		class="btn btn-outline-primary"
 		type="button"
 		data-bs-toggle="collapse"
 		data-bs-target="#comment-collapse-{{this.id}}"
@@ -24,19 +24,26 @@
 </p>
 <div class="collapse m-0 p-0" id="comment-collapse-{{this.id}}">
 	<div class="comments card border-0">
-		<ul class="comment-list list-group list-group-flush p-0 m-0" id="comment-list-{{this.id}}">
+		<ul
+			class="comment-list list-group list-group-flush p-0 m-0"
+			id="comment-list-{{this.id}}"
+		>
 			{{#each this.comments as |comment|}}
 				<li class="list-group-item m-0 p-0">
 					<div class="comment m-0 p-0">
 						<div
-							class="card-header text-muted text-end comment-header rounded-0 px-2"
+							class="card-header comment-header rounded-0 py-2 px-4"
 						>
-							Comment By
-							{{comment.user.username}}
-							on
-							{{comment.updatedAt}}
+							<h6
+								class="font-weight-light text-muted text-end p-0 m-0"
+							>
+								Comment By
+								{{comment.user.username}}
+								on
+								{{comment.updatedAt}}
+							</h6>
 						</div>
-						<div class="text-start comment-text">
+						<div class="text-start comment-text py-2 px-4">
 							{{comment.content}}
 						</div>
 					</div>
@@ -46,23 +53,28 @@
 	</div>
 </div>
 <div class="collapse m-0 p-0" id="create-comment-{{this.id}}">
-	<form class="m-1 p-2 submit-comment" id="new-comment-{{this.id}}">
-		<div class="mb-3">
+	<form class="submit-comment mt-2" id="new-comment-{{this.id}}">
+		<div class="mb-2">
 			<label
 				for="new-comment"
-				class="form-label text-dark text-start px-1 py-0 m-0"
+				class="form-label text-dark text-start m-0 py-2 px-4"
 				style="width: 100%;"
 			>Comment</label>
-			<textarea
-				class="form-control"
-				name="new-comment"
-				id="new-comment"
-			></textarea>
+			<div class="m-0 py-2 px-4">
+				<textarea
+					class="form-control"
+					name="new-comment"
+					id="new-comment"
+				></textarea></div>
 		</div>
-		<button
-			type="submit"
-			class="btn btn-primary submit-comment-button"
-			id="submit-comment-{{this.id}}"
-		>Submit</button>
+		<div class="row m-0 mt-2 mb-2 py-2 px-4">
+			<button
+				type="submit"
+				class="btn btn-outline-primary submit-comment-button"
+				id="submit-comment-{{this.id}}"
+			>
+				Submit
+			</button>
+		</div>
 	</form>
 </div>
