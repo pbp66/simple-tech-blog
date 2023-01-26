@@ -28,27 +28,16 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-	let owner = false;
-	const customPostIncludes = postIncludes;
 	try {
-		customPostIncludes[1]["where"] = { post_id: req.params.id };
 		const postData = await Post.findAll({
 			attributes: postAttributes,
 			where: { id: req.params.id },
-			include: customPostIncludes,
+			include: postIncludes,
 		});
 
 		const post = postData.map((element) => element.get({ plain: true }))[0];
 
-		if (post.user_id === req.session.user_id) {
-			owner = true;
-		}
-
-		res.render("post", {
-			owner,
-			post,
-			logged_in: req.session.logged_in,
-		});
+		res.status(201).json(post).send();
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(`<h1>500 Internal Server Error</h1>`);

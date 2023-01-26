@@ -95,24 +95,33 @@ router.get("/dashboard", withAuth, async (req, res) => {
 
 // Load and render a post in its own window with comments
 router.get("/post/:post_id", async (req, res) => {
-	const postData = Post.findOne({
-		include: [
-			User,
-			{
-				model: Comment,
-				order: [["updatedAt", "DESC"]],
-			},
-		],
-		where: { id: req.params.post_id },
-		order: [["updatedAt", "DESC"]],
-	});
+	let owner = false;
 
-	const post = postData.dataValues;
+	try {
+		const postData = await Post.findAll({
+			attributes: postAttributes,
+			where: { id: req.params.post_id },
+			include: postIncludes,
+		});
 
-	res.render("post", {
-		post: post,
-		logged_in: req.session.logged_in,
-	});
+		const post = postData.map((element) => element.get({ plain: true }))[0];
+
+		if (post.user_id === req.session.user_id) {
+			owner = true;
+		}
+
+		res.render("post", {
+			owner,
+			post,
+			logged_in: req.session.logged_in,
+			current_user: req.session.user_id,
+			logged_in: req.session.logged_in,
+			user: req.session.username,
+		});
+	} catch (err) {
+		console.error(err);
+		res.status(500).send(`<h1>500 Internal Server Error</h1>`);
+	}
 });
 
 export default router;
