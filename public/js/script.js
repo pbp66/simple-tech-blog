@@ -153,7 +153,8 @@ if (posts.length > 0) {
 	const currentURL = new URL(location);
 
 	// If we are viewing a single post, we do not want to add event listeners. This would enable the user to click the post to view the page they are already viewing!
-	if (!currentURL.pathname.match(/^\/post\/*$/)) {
+	if (!currentURL.pathname.match(/(\/post\/).$/)) {
+		console.log("Adding post event listeners");
 		for (const post of posts) {
 			post.addEventListener("click", viewPostHandler);
 		}

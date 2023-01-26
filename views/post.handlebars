@@ -32,22 +32,22 @@
 				</div>
 			</div>
 			<div class="card-footer row m-0 p-0">
-				<div class="row py-2 px-4">
+				<div class="row p-0 py-2 m-0">
 					{{#if owner}}
-						<p>
-							<button class="col btn btn-outline-primary">
+						<p class="col">
+							<button class="btn btn-outline-primary">
 								Update Post
 							</button>
 						</p>
-						<p>
-							<button class="col btn btn-outline-danger">
+						<p class="col">
+							<button class="btn btn-outline-danger">
 								Delete Post
 							</button>
 						</p>
 					{{/if}}
-					<p>
+					<p class="col">
 						<button
-							class="col btn btn-outline-secondary"
+							class="btn btn-outline-secondary"
 							type="button"
 							data-bs-toggle="collapse"
 							data-bs-target="#create-comment-{{post.id}}"
