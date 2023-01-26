@@ -6,35 +6,45 @@
 	.card-title { border-radius: 10px; }
 </style>
 <div class="container-fluid">
-	<div class="card post btn-outline-primary">
-		<div class="card-body">
-			<div class="row card-title bg-dark">
-				<h5 class="col post-title font-weight-bold text-light">
-					<span class="btn btn-primary"> {{post.title}}</span>
-				</h5>
-				<h6
-					class="post-user post-time col font-weight-light text-muted"
-				>
+	<div
+		class="post card-transform btn btn-outline-primary"
+		id="post-{{this.id}}"
+		role="button"
+	>
+		<div class="card border-0">
+			<div class="card-header">
+				<h6 class="font-weight-light text-muted py-1 my-0">
 					Posted by
-					{{post.user.username}}
+					{{this.user.username}}
 					on
-					{{post.updatedAt}}
-				</h6>
+					{{this.updatedAt}}
+				</h6></div>
+			<div class="card-body px-1 py-0 m-1">
+				<div class="card-title">
+					<h5
+						class="post-title font-weight-bold text-primary p-0 mx-1 my-0 border-bottom border-primary rounded-0 border-opacity-75"
+					>{{this.title}}
+					</h5>
+				</div>
+				<div class="post-text px-2 py-0">
+					<p
+						class="card-text text-dark text-start"
+					>{{this.content}}</p>
+				</div>
 			</div>
-			<div class="post-text">
-				<p class="card-text">{{post.content}}</p>
+			<div class="card-footer row m-0 p-0">
+				{{> comment this}}
 			</div>
-			{{> comment post}}
 		</div>
 		{{#if owner}}
-		<div class="card-footer">
-			<button class="btn btn-outline-primary">
-				Update Post
-			</button>
-			<button class="btn btn-outline-danger">
-				Delete Post
-			</button>
-		</div>
+			<div class="card-footer">
+				<button class="btn btn-outline-primary">
+					Update Post
+				</button>
+				<button class="btn btn-outline-danger">
+					Delete Post
+				</button>
+			</div>
 		{{/if}}
 	</div>
 </div>

@@ -11,8 +11,9 @@ import {
 router.get("/", async (req, res) => {
 	try {
 		const allPostsData = await Post.findAll({
-			include: [Comment, User],
-			order: [["updateAt", "DESC"]],
+			attributes: postAttributes,
+			include: postIncludes,
+			order: [["updatedAt", "DESC"]],
 		});
 
 		const allPosts = allPostsData.map((element) =>
@@ -28,32 +29,13 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
 	let owner = false;
+	const customPostIncludes = postIncludes;
 	try {
+		customPostIncludes[1][where] = { post_id: req.params.id };
 		const postData = await Post.findAll({
-			attributes: {
-				include: [
-					"id",
-					"title",
-					"content",
-					[
-						sequelize.fn(
-							"DATE_FORMAT",
-							sequelize.col("post.updated_at"),
-							"%m/%d/%Y %h:%i %p"
-						),
-						"updatedAt",
-					],
-				],
-			},
+			attributes: postAttributes,
 			where: { id: req.params.id },
-			include: [
-				{
-					model: Comment,
-					order: [["updatedAt", "DESC"]],
-					where: { post_id: req.params.id },
-				},
-				User,
-			],
+			include: customPostIncludes,
 		});
 
 		const post = postData.map((element) => element.get({ plain: true }))[0];
