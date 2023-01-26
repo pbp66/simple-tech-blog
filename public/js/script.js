@@ -133,6 +133,10 @@ const postSubmitHandler = (event) => {
 		});
 };
 
+const viewPostHandler = (event) => {
+	event.preventDefault();
+};
+
 const commentSubmissionForms =
 	document.getElementsByClassName("submit-comment");
 for (const form of commentSubmissionForms) {
@@ -142,4 +146,16 @@ for (const form of commentSubmissionForms) {
 const postSubmissionForm = document.getElementById("new-post-form");
 if (postSubmissionForm) {
 	postSubmissionForm.addEventListener("submit", postSubmitHandler);
+}
+
+const posts = document.getElementsByClassName("post");
+if (posts.length > 0) {
+	const currentURL = new URL(location);
+
+	// If we are viewing a single post, we do not want to add event listeners. This would enable the user to click the post to view the page they are already viewing!
+	if (!currentURL.pathname.match(/^\/post\/*$/)) {
+		for (const post of posts) {
+			post.addEventListener("click", viewPostHandler);
+		}
+	}
 }

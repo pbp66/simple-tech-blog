@@ -7,44 +7,88 @@
 </style>
 <div class="container-fluid">
 	<div
-		class="post btn btn-outline-primary"
-		id="post-{{this.id}}"
+		class="post post-view btn btn-outline-primary"
+		id="post-{{post.id}}"
 		role="button"
 	>
 		<div class="card border-0">
-			<div class="card-header">
-				<h6 class="font-weight-light text-muted py-1 my-0">
+			<div class="card-header m-0 py-2 px-4">
+				<h6 class="font-weight-light text-muted p-0 m-0">
 					Posted by
 					{{post.user.username}}
 					on
 					{{post.updatedAt}}
 				</h6></div>
-			<div class="card-body px-1 py-0 m-1">
+			<div class="card-body m-0 py-2 px-4">
 				<div class="card-title">
-					<h5
-						class="post-title font-weight-bold text-primary p-0 mx-1 my-0 border-bottom border-primary rounded-0 border-opacity-75"
-					>{{post.title}}
+					<h5 class="post-title">
+						{{post.title}}
 					</h5>
 				</div>
-				<div class="post-text px-2 py-0">
-					<p
-						class="card-text text-dark text-start"
-					>{{post.content}}</p>
+				<div class="post-text">
+					<p class="card-text text-dark text-start">
+						{{post.content}}
+					</p>
 				</div>
 			</div>
 			<div class="card-footer row m-0 p-0">
-				{{> comment post}}
+				<div class="row py-2 px-4">
+					{{#if owner}}
+						<p>
+							<button class="col btn btn-outline-primary">
+								Update Post
+							</button>
+						</p>
+						<p>
+							<button class="col btn btn-outline-danger">
+								Delete Post
+							</button>
+						</p>
+					{{/if}}
+					<p>
+						<button
+							class="col btn btn-outline-secondary"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#create-comment-{{post.id}}"
+							aria-expanded="false"
+							aria-controls="create-comment-{{post.id}}"
+						>
+							Add Comment
+						</button>
+					</p>
+				</div>
+				<div class="comments card border-0">
+					<ul
+						class="comment-list list-group list-group-flush p-0 m-0"
+						id="comment-list-{{post.id}}"
+					>
+						{{#each post.comments as |comment|}}
+							<li class="list-group-item m-0 p-0">
+								<div class="comment m-0 p-0">
+									<div
+										class="card-header comment-header rounded-0 py-2 px-4"
+									>
+										<h6
+											class="font-weight-light text-muted text-end p-0 m-0"
+										>
+											Comment By
+											{{comment.user.username}}
+											on
+											{{comment.updatedAt}}
+										</h6>
+									</div>
+									<div
+										class="text-start comment-text py-2 px-4"
+									>
+										{{comment.content}}
+									</div>
+								</div>
+							</li>
+						{{/each}}
+					</ul>
+				</div>
 			</div>
 		</div>
-		{{#if owner}}
-			<div class="card-footer">
-				<button class="btn btn-outline-primary">
-					Update Post
-				</button>
-				<button class="btn btn-outline-danger">
-					Delete Post
-				</button>
-			</div>
-		{{/if}}
 	</div>
 </div>

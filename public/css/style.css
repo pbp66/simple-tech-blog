@@ -53,6 +53,13 @@ label {
 	position: relative;
 }
 
+.post-view {
+	padding: 0px;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 .post-title {
 	margin: 0px;
 	padding: 0px;
