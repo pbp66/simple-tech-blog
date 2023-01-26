@@ -7,40 +7,6 @@ $("form").on("keydown input", "textarea[data-expandable]", function () {
 	this.style.height = this.scrollHeight + 2 + "px";
 });
 
-const commentSubmitHandler = (event) => {
-	event.preventDefault();
-	const newComment = {
-		post_id: event.target.id.split("-")[2],
-		content: event.target[0].value,
-	};
-
-	// Make API Call
-
-	fetch(`./api/comments/${newComment.post_id}`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(newComment),
-	})
-		.then((response) => response.json())
-		.then((data) => {
-			event.target[0].value = "";
-			appendNewComment(data);
-			addSuccessAlert(data.post_id, "Comment");
-		})
-		.catch((err) => {
-			// TODO: Handle error with bootstrap alert
-			console.error(err);
-		});
-};
-
-const commentSubmissionForms =
-	document.getElementsByClassName("submit-comment");
-for (const form of commentSubmissionForms) {
-	form.addEventListener("submit", commentSubmitHandler);
-}
-
 function appendNewComment(newCommentObject) {
 	const commentList = document.getElementById(
 		`comment-list-${newCommentObject.post_id}`
@@ -55,18 +21,27 @@ function appendNewComment(newCommentObject) {
 	const cardHeader = document.createElement("div");
 	cardHeader.classList.add(
 		"card-header",
-		"text-muted",
-		"text-end",
 		"comment-header",
 		"rounded-0",
-		"px-2"
+		"py-2",
+		"px-4"
 	);
-	cardHeader.innerText = `Comment By ${newCommentObject.username} on ${newCommentObject.updatedAt}`;
+
+	const cardHeaderTitle = document.createElement("h6");
+	cardHeaderTitle.classList.add(
+		"font-weight-light",
+		"text-muted",
+		"text-end",
+		"p-0",
+		"m-0"
+	);
+	cardHeaderTitle.innerText = `Comment By ${newCommentObject.username} on ${newCommentObject.updatedAt}`;
 
 	const cardText = document.createElement("div");
-	cardText.classList.add("text-start", "comment-text");
+	cardText.classList.add("text-start", "comment-text", "py-2", "px-4");
 	cardText.innerText = newCommentObject.content;
 
+	cardHeader.appendChild(cardHeaderTitle);
 	card.appendChild(cardHeader);
 	card.appendChild(cardText);
 	newCommentListItem.appendChild(card);
@@ -108,4 +83,63 @@ function addAlert(alertType, postId, message) {
 	alertDiv.appendChild(alertButton);
 
 	postFooter.insertBefore(alertDiv, postFooterForm);
+}
+
+const commentSubmitHandler = (event) => {
+	event.preventDefault();
+	const newComment = {
+		post_id: event.target.id.split("-")[2],
+		content: event.target[0].value,
+	};
+
+	fetch(`./api/comments/${newComment.post_id}`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(newComment),
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			event.target[0].value = "";
+			appendNewComment(data);
+			addSuccessAlert(data.post_id, "Comment");
+		})
+		.catch((err) => {
+			// TODO: Handle error with bootstrap alert
+			console.error(err);
+		});
+};
+
+const postSubmitHandler = (event) => {
+	event.preventDefault();
+	const newPost = {
+		title: event.target[0].value,
+		content: event.target[1].value,
+	};
+
+	fetch(`./api/posts/`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(newPost),
+	})
+		.then((response) => {
+			location.reload();
+		})
+		.catch((err) => {
+			// TODO: Handle errors
+		});
+};
+
+const commentSubmissionForms =
+	document.getElementsByClassName("submit-comment");
+for (const form of commentSubmissionForms) {
+	form.addEventListener("submit", commentSubmitHandler);
+}
+
+const postSubmissionForm = document.getElementById("new-post-form");
+if (postSubmissionForm) {
+	postSubmissionForm.addEventListener("submit", postSubmitHandler);
 }
