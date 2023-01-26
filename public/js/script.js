@@ -76,7 +76,7 @@ function addAlert(alertType, postId, message) {
 	alertDiv.innerText = `${message} `;
 
 	const alertButton = document.createElement("button");
-	alertButton.classList.add("btn-close", "m-1", "p-1");
+	alertButton.classList.add("btn-close", "m-1", "py-1", "px-2");
 	alertButton.setAttribute("type", "button");
 	alertButton.setAttribute("data-bs-dismiss", "alert");
 	alertButton.setAttribute("aria-label", "Close");
@@ -104,7 +104,7 @@ const commentSubmitHandler = (event) => {
 		content: event.target[0].value,
 	};
 
-	fetch(`./api/comments/${newComment.post_id}`, {
+	fetch(`/api/comments/${newComment.post_id}`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -131,7 +131,7 @@ const postSubmitHandler = (event) => {
 		content: event.target[1].value,
 	};
 
-	fetch(`./api/posts/`, {
+	fetch(`/api/posts/`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -175,6 +175,12 @@ const deletePostHandler = (event) => {
 		});
 };
 
+const updatePostHandler = (event) => {
+	event.preventDefault();
+	console.log("update post handler");
+	console.log(event.target);
+};
+
 const posts = document.getElementsByClassName("post");
 if (posts.length > 0) {
 	const currentURL = new URL(location);
@@ -202,4 +208,10 @@ const deletePostButton =
 	document.getElementsByClassName("delete-post-button")[0];
 if (deletePostButton) {
 	deletePostButton.addEventListener("click", deletePostHandler);
+}
+
+const updatePostButton =
+	document.getElementsByClassName("update-post-button")[0];
+if (updatePostButton) {
+	updatePostButton.addEventListener("click", updatePostHandler);
 }

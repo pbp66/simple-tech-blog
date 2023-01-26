@@ -35,14 +35,17 @@
 				<div class="row p-0 py-2 m-0">
 					{{#if owner}}
 						<p class="col">
-							<button class="btn btn-outline-primary">
+							<button
+								class="btn btn-outline-primary post-button update-post-button"
+								id="update-post-{{post.id}}"
+							>
 								Update Post
 							</button>
 						</p>
 						<p class="col">
 							<button
 								type="button"
-								class="btn btn-outline-danger delete-post-modal"
+								class="btn btn-outline-danger post-button delete-post-modal"
 								data-bs-toggle="modal"
 								data-bs-target="#delete-post-modal"
 							>
@@ -93,7 +96,7 @@
 					{{/if}}
 					<p class="col">
 						<button
-							class="btn btn-outline-secondary"
+							class="btn btn-outline-secondary post-button add-comment-button"
 							type="button"
 							data-bs-toggle="collapse"
 							data-bs-target="#create-comment-{{post.id}}"
