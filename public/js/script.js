@@ -177,7 +177,6 @@ const deletePostHandler = (event) => {
 
 const commentSubmissionForms =
 	document.getElementsByClassName("submit-comment");
-console.log(commentSubmissionForms);
 for (const form of commentSubmissionForms) {
 	form.addEventListener("submit", commentSubmitHandler);
 }
@@ -187,17 +186,17 @@ if (postSubmissionForm) {
 	postSubmissionForm.addEventListener("submit", postSubmitHandler);
 }
 
-const posts = document.getElementsByClassName("post");
-if (posts.length > 0) {
-	const currentURL = new URL(location);
+// const posts = document.getElementsByClassName("post");
+// if (posts.length > 0) {
+// 	const currentURL = new URL(location);
 
-	// If we are viewing a single post, we do not want to add event listeners. This would enable the user to click the post to view the page they are already viewing!
-	if (!currentURL.pathname.match(/(\/post\/).$/)) {
-		for (const post of posts) {
-			post.addEventListener("click", viewPostHandler);
-		}
-	}
-}
+// 	// If we are viewing a single post, we do not want to add event listeners. This would enable the user to click the post to view the page they are already viewing!
+// 	if (!currentURL.pathname.match(/(\/post\/).$/)) {
+// 		for (const post of posts) {
+// 			post.addEventListener("click", viewPostHandler);
+// 		}
+// 	}
+// }
 
 const deletePostButton =
 	document.getElementsByClassName("delete-post-button")[0];
