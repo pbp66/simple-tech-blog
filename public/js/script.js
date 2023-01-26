@@ -98,6 +98,7 @@ function getPostId(element) {
 
 const commentSubmitHandler = (event) => {
 	event.preventDefault();
+
 	const newComment = {
 		post_id: event.target.id.split("-")[2],
 		content: event.target[0].value,
@@ -124,6 +125,7 @@ const commentSubmitHandler = (event) => {
 
 const postSubmitHandler = (event) => {
 	event.preventDefault();
+
 	const newPost = {
 		title: event.target[0].value,
 		content: event.target[1].value,
@@ -156,6 +158,7 @@ const viewPostHandler = (event) => {
 
 const deletePostHandler = (event) => {
 	event.preventDefault();
+
 	const url = new URL(location);
 	url.pathname = "/Dashboard";
 
@@ -174,6 +177,7 @@ const deletePostHandler = (event) => {
 
 const commentSubmissionForms =
 	document.getElementsByClassName("submit-comment");
+console.log(commentSubmissionForms);
 for (const form of commentSubmissionForms) {
 	form.addEventListener("submit", commentSubmitHandler);
 }
