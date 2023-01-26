@@ -18,15 +18,22 @@
 					{{post.user.username}}
 					on
 					{{post.updatedAt}}
-				</h6></div>
-			<div class="card-body m-0 py-2 px-4">
+				</h6>
+			</div>
+			<div
+				class="post-body card-body m-0 py-2 px-4"
+				id="post-body-{{post.id}}"
+			>
 				<div class="card-title">
-					<h5 class="post-title">
+					<h5 class="post-title" id="post-title-{{post.id}}">
 						{{post.title}}
 					</h5>
 				</div>
 				<div class="post-text">
-					<p class="card-text text-dark text-start">
+					<p
+						class="post-text card-text text-dark text-start"
+						id="post-text-{{post.id}}"
+					>
 						{{post.content}}
 					</p>
 				</div>

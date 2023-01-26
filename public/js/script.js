@@ -96,6 +96,63 @@ function getPostId(element) {
 	return getPostId(element.parentElement);
 }
 
+function makePostEditable(id) {
+	const postBody = document.getElementById(`post-body-${id}`);
+	const postTitle = document.getElementById(`post-title-${id}`);
+	const postText = document.getElementById(`post-text-${id}`);
+	const postTitleParent = postTitle.parentElement;
+	const postTextParent = postText.parentElement;
+
+	const editablePost = createPostForm(
+		id,
+		postTitle.innerText,
+		postText.innerText
+	);
+
+	postTitleParent.innerHTML = "";
+
+	postTextParent.innerHTML = "";
+}
+
+function createPostForm(postId, title, content) {
+	return $(
+		`<form id="update-post-form">
+            <div class="card-title m-0">
+                <h5 class="post-title py-0 px-4 m-0" id="post-title-${postId}">
+                    <input
+                        type="text"
+                        class="form-control px-2 py-1 m-0 fs-6"
+                        id="post-title"
+                        value="${title}"
+                    />
+                </h5>
+            </div>
+            <div class="post-text m-0">
+                <p 
+                    class="card-text text-dark text-start py-0 px-4 m-0 mb-4" 
+                    id="post-text-${postId}"
+                >
+                    <textarea
+                        data-expandable
+                        class="form-control px-2 py-1 m-0 fs-6"
+                        name="post-body"
+                        id="post-body"
+                        value="${content}"
+                    ></textarea>
+                </p>
+            </div>
+            <div class="card-footer row m-0 mt-2 mb-2 py-2 px-4">
+                <button
+                    type="submit"
+                    class="btn btn-outline-primary card-footer-button"
+                >
+                    Submit
+                </button>
+            </div>
+        </form>`
+	);
+}
+
 const commentSubmitHandler = (event) => {
 	event.preventDefault();
 
@@ -177,8 +234,9 @@ const deletePostHandler = (event) => {
 
 const updatePostHandler = (event) => {
 	event.preventDefault();
-	console.log("update post handler");
-	console.log(event.target);
+	const postId = event.target.id.split("-")[2];
+
+	makePostEditable(postId);
 };
 
 const posts = document.getElementsByClassName("post");
