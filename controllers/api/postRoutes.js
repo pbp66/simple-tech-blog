@@ -31,7 +31,7 @@ router.get("/:id", async (req, res) => {
 	let owner = false;
 	const customPostIncludes = postIncludes;
 	try {
-		customPostIncludes[1][where] = { post_id: req.params.id };
+		customPostIncludes[1]["where"] = { post_id: req.params.id };
 		const postData = await Post.findAll({
 			attributes: postAttributes,
 			where: { id: req.params.id },

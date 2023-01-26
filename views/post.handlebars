@@ -15,25 +15,25 @@
 			<div class="card-header">
 				<h6 class="font-weight-light text-muted py-1 my-0">
 					Posted by
-					{{this.user.username}}
+					{{post.user.username}}
 					on
-					{{this.updatedAt}}
+					{{post.updatedAt}}
 				</h6></div>
 			<div class="card-body px-1 py-0 m-1">
 				<div class="card-title">
 					<h5
 						class="post-title font-weight-bold text-primary p-0 mx-1 my-0 border-bottom border-primary rounded-0 border-opacity-75"
-					>{{this.title}}
+					>{{post.title}}
 					</h5>
 				</div>
 				<div class="post-text px-2 py-0">
 					<p
 						class="card-text text-dark text-start"
-					>{{this.content}}</p>
+					>{{post.content}}</p>
 				</div>
 			</div>
 			<div class="card-footer row m-0 p-0">
-				{{> comment this}}
+				{{> comment post}}
 			</div>
 		</div>
 		{{#if owner}}
