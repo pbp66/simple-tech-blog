@@ -43,12 +43,12 @@ label {
 }
 
 .card-transform:hover {
-	-webkit-transform: scale(1.05);
-	transform: scale(1.05);
+	-webkit-transform: scale(1.03);
+	transform: scale(1.03);
 	transition: transform 0.3s, margin 0.3s ease-out;
 	width: 100%;
 	z-index: 10;
-	margin: 50px 0px;
+	margin: 20px 0px;
 	position: relative;
 }
 
