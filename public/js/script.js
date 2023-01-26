@@ -128,7 +128,7 @@ function createPostForm(postId, title, content) {
                     <input
                         type="text"
                         class="form-control border-0 fs-4 post-title"
-                        id="post-title"
+                        id="post-title-${postId}"
                         value="${title}"
                     />
                 </h5>
@@ -142,7 +142,7 @@ function createPostForm(postId, title, content) {
                         data-expandable
                         class="form-control border-primary px-2 py-1 m-0 fs-6"
                         name="post-body"
-                        id="post-body"
+                        id="post-body-${postId}"
                     >
 ${content}
                     </textarea>
@@ -249,15 +249,31 @@ const deletePostHandler = (event) => {
 
 const updatePostHandler = (event) => {
 	event.preventDefault();
-	event.stopPropagation();
 	const postId = event.target.id.split("-")[2];
 	makePostEditable(postId);
 };
 
 const submittedPostUpdateHandler = (event) => {
 	event.preventDefault();
-	console.log("submit updated post");
-	console.log(event.target);
+	const postId = event.target[0].id.split("-")[2];
+	const updatedPost = {
+		title: event.target[0].value,
+		content: event.target[1].value,
+	};
+
+	fetch(`/api/posts/${postId}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(updatedPost),
+	})
+		.then((response) => {
+			location.reload();
+		})
+		.catch((err) => {
+			// TODO: Handle errors
+		});
 };
 
 const cancelledPostUpdateHandler = (event) => {
