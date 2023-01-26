@@ -42,7 +42,7 @@
 						<p class="col">
 							<button
 								type="button"
-								class="btn btn-outline-danger"
+								class="btn btn-outline-danger delete-post-modal"
 								data-bs-toggle="modal"
 								data-bs-target="#delete-post-modal"
 							>
@@ -80,9 +80,10 @@
 										</button>
 										<button
 											type="button"
-											class="btn btn-danger p-1 my-2"
+											class="btn btn-danger p-1 my-2 delete-post-button"
+											id="delete-post-{{post.id}}"
 										>
-											<strong>Delete Post</strong>
+											Delete Post
 										</button>
 									</div>
 								</div>

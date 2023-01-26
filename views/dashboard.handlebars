@@ -74,7 +74,7 @@
 	</div>
 </div>
 {{#if count}}
-	<div class="container-fluid">
+	<div class="container-fluid posts-container">
 		<div class="post-group-header text-primary text-center p-1 m-0">
 			Your Posts
 		</div>
@@ -82,7 +82,7 @@
 			{{> post this}}
 		{{/each}}
 	</div>
-	<div class="container-fluid mt-2">
+	<div class="container-fluid mt-2 comments-container">
 		<div class="post-group-header text-primary text-center p-1 m-0">
 			Your Comments
 		</div>
@@ -95,7 +95,7 @@
 				<div class="card m-0 p-0 border-0">
 						<div class="card-header comment-header rounded-0">
 							<h6
-								class="font-weight-light text-muted text-end p-0 py-1 m-0"
+								class="font-weight-light text-muted text-end m-0 py-2 px-4"
 							>
 								Comment By
 								{{comment.user.username}}

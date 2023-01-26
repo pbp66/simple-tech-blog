@@ -154,6 +154,26 @@ const viewPostHandler = (event) => {
 	}
 };
 
+const deletePostHandler = (event) => {
+	event.preventDefault();
+	console.log(event.target);
+	const id = event.target.id.split("-")[2];
+	const url = new URL(location);
+	url.pathname = "/Dashboard";
+
+	fetch(`/api/posts/${id}`, {
+		method: "DELETE",
+	})
+		.then((response) => {
+			console.log(response.json());
+			//location = url;
+		})
+		.catch((err) => {
+			console.error(err);
+			// TODO: handle error
+		});
+};
+
 const commentSubmissionForms =
 	document.getElementsByClassName("submit-comment");
 for (const form of commentSubmissionForms) {
@@ -175,4 +195,10 @@ if (posts.length > 0) {
 			post.addEventListener("click", viewPostHandler);
 		}
 	}
+}
+
+const deletePostButton =
+	document.getElementsByClassName("delete-post-button")[0];
+if (deletePostButton) {
+	deletePostButton.addEventListener("click", deletePostHandler);
 }
