@@ -76,7 +76,7 @@ function addAlert(alertType, postId, message) {
 	alertDiv.innerText = `${message} `;
 
 	const alertButton = document.createElement("button");
-	alertButton.classList.add("btn-close", "m-1", "p-1");
+	alertButton.classList.add("btn-close", "m-1", "py-1", "px-2");
 	alertButton.setAttribute("type", "button");
 	alertButton.setAttribute("data-bs-dismiss", "alert");
 	alertButton.setAttribute("aria-label", "Close");
@@ -85,14 +85,99 @@ function addAlert(alertType, postId, message) {
 	postFooter.insertBefore(alertDiv, postFooterForm);
 }
 
+function getPostId(element) {
+	let id;
+	for (const elementClass of element.classList) {
+		if (elementClass === "post") {
+			id = element.id.split("-")[1];
+			return id;
+		}
+	}
+	return getPostId(element.parentElement);
+}
+
+function makePostEditable(id) {
+	const postBackup = new Object();
+	const postTitle = document.getElementById(`post-title-${id}`);
+	const postText = document.getElementById(`post-text-${id}`);
+	const editablePost = createPostForm(
+		id,
+		postTitle.innerText,
+		postText.innerText
+	);
+
+	const postBody = document.getElementById(`post-body-${id}`);
+	Object.assign(postBackup, postBody.children);
+	postBody.innerHTML = "";
+	postBody.appendChild(editablePost);
+
+	const submitPostUpdateForm = document.getElementById("update-post-form");
+	const cancelPostUpdateButton =
+		document.getElementById("cancel-post-update");
+
+	submitPostUpdateForm.addEventListener("submit", submittedPostUpdateHandler);
+	cancelPostUpdateButton.addEventListener("click", (event) => {
+		cancelledPostUpdateHandler(event, id, postBackup);
+	});
+}
+
+function createPostForm(postId, title, content) {
+	return $(
+		`<form id="update-post-form">
+            <div class="card-title">
+                <h5 class="post-title" id="post-title-${postId}">
+                    <input
+                        type="text"
+                        class="form-control border-0 fs-4 post-title"
+                        id="post-title-${postId}"
+                        value="${title}"
+                    />
+                </h5>
+            </div>
+            <div class="post-text m-0">
+                <p 
+                    class="card-text text-dark text-start border-0" 
+                    id="post-text-${postId}"
+                >
+                    <textarea
+                        data-expandable
+                        class="form-control border-primary px-2 py-1 m-0 fs-6"
+                        name="post-body"
+                        id="post-body-${postId}"
+                    >
+${content}
+                    </textarea>
+                </p>
+            </div>
+            <div class="row m-0 mt-2 mb-2 py-2 px-4">
+                            <button
+                    type="button"
+                    class="btn btn-outline-danger cancel-post-update col mx-3"
+                    id="cancel-post-update"
+                >
+                    Cancel
+                </button>
+                <button
+                    type="submit"
+                    class="btn btn-outline-primary submit-post-update col mx-3"
+                    id="submit-post-update"
+                >
+                    Save
+                </button>
+            </div>
+        </form>`
+	)[0];
+}
+
 const commentSubmitHandler = (event) => {
 	event.preventDefault();
+
 	const newComment = {
 		post_id: event.target.id.split("-")[2],
 		content: event.target[0].value,
 	};
 
-	fetch(`./api/comments/${newComment.post_id}`, {
+	fetch(`/api/comments/${newComment.post_id}`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -113,12 +198,13 @@ const commentSubmitHandler = (event) => {
 
 const postSubmitHandler = (event) => {
 	event.preventDefault();
+
 	const newPost = {
 		title: event.target[0].value,
 		content: event.target[1].value,
 	};
 
-	fetch(`./api/posts/`, {
+	fetch(`/api/posts/`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -133,6 +219,86 @@ const postSubmitHandler = (event) => {
 		});
 };
 
+const viewPostHandler = (event) => {
+	//event.preventDefault(); // TODO: Why does this allow the other event handler to work???
+	const validClick = !["TEXTAREA", "BUTTON"].includes(event.target.tagName);
+	if (validClick) {
+		const url = new URL(location);
+		url.pathname = `/post/${getPostId(event.target)}`;
+		location = url;
+	}
+};
+
+const deletePostHandler = (event) => {
+	event.preventDefault();
+
+	const url = new URL(location);
+	url.pathname = "/Dashboard";
+
+	const id = event.target.id.split("-")[2];
+	fetch(`/api/posts/${id}`, {
+		method: "DELETE",
+	})
+		.then((response) => {
+			location = url;
+		})
+		.catch((err) => {
+			console.error(err);
+			// TODO: handle error
+		});
+};
+
+const updatePostHandler = (event) => {
+	event.preventDefault();
+	const postId = event.target.id.split("-")[2];
+	makePostEditable(postId);
+};
+
+const submittedPostUpdateHandler = (event) => {
+	event.preventDefault();
+	const postId = event.target[0].id.split("-")[2];
+	const updatedPost = {
+		title: event.target[0].value,
+		content: event.target[1].value,
+	};
+
+	fetch(`/api/posts/${postId}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(updatedPost),
+	})
+		.then((response) => {
+			location.reload();
+		})
+		.catch((err) => {
+			// TODO: Handle errors
+		});
+};
+
+const cancelledPostUpdateHandler = (event, postId, postBackup) => {
+	event.preventDefault();
+	const postBody = document.getElementById(`post-body-${postId}`);
+	postBody.innerHTML = "";
+	postBody.appendChild(postBackup[0]);
+	postBody.appendChild(postBackup[1]);
+
+	const collapsedButtons = document.getElementById("update-post-collapse");
+	collapsedButtons.classList.add("show");
+};
+
+const posts = document.getElementsByClassName("post");
+if (posts.length > 0) {
+	const currentURL = new URL(location);
+	// If we are viewing a single post, we do not want to add event listeners. This would enable the user to click the post to view the page they are already viewing!
+	if (!currentURL.pathname.match(/\/post\//)) {
+		for (const post of posts) {
+			post.addEventListener("click", viewPostHandler);
+		}
+	}
+}
+
 const commentSubmissionForms =
 	document.getElementsByClassName("submit-comment");
 for (const form of commentSubmissionForms) {
@@ -142,4 +308,16 @@ for (const form of commentSubmissionForms) {
 const postSubmissionForm = document.getElementById("new-post-form");
 if (postSubmissionForm) {
 	postSubmissionForm.addEventListener("submit", postSubmitHandler);
+}
+
+const deletePostButton =
+	document.getElementsByClassName("delete-post-button")[0];
+if (deletePostButton) {
+	deletePostButton.addEventListener("click", deletePostHandler);
+}
+
+const updatePostButton =
+	document.getElementsByClassName("update-post-button")[0];
+if (updatePostButton) {
+	updatePostButton.addEventListener("click", updatePostHandler);
 }

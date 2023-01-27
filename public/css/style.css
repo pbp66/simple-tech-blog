@@ -53,6 +53,17 @@ label {
 	position: relative;
 }
 
+.post-view {
+	padding: 0px;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.post-button {
+	width: 100%;
+}
+
 .post-title {
 	margin: 0px;
 	padding: 0px;
@@ -100,7 +111,28 @@ label {
 	margin: 0px;
 }
 
+.comments-container {
+	margin-bottom: 75px;
+}
+
 .card-footer-button {
 	padding: 8px;
 	margin: 0px;
+}
+
+.delete-post-button {
+	font-weight: bold;
+}
+
+navbar-footer {
+	padding: 50px 0px;
+}
+
+footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	margin-top: 50px;
+	z-index: -10;
 }

@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
 		});
 	} catch (err) {
 		console.error(err);
-		res.status(500).json(err);
+		res.status(500).json(err).send(`<h1>500 Internal Server Error</h1>`);
 	}
 });
 
@@ -89,7 +89,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
 		});
 	} catch (err) {
 		console.error(err);
-		res.status(500).json(err);
+		res.status(500).json(err).send(`<h1>500 Internal Server Error</h1>`);
 	}
 });
 

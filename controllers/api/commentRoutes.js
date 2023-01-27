@@ -16,7 +16,7 @@ router.get("/:post_id", async (req, res) => {
 		res.status(200).json(comments).send();
 	} catch (err) {
 		console.error(err);
-		res.status(500).send(`<h1>500 Internal Server Error</h1>`);
+		res.status(500).json(err).send("Internal Server Error");
 	}
 });
 
@@ -26,7 +26,7 @@ router.post("/:post_id", async (req, res) => {
 		Object.assign(newCommentData, req.body);
 		newCommentData["user_id"] = req.session.user_id;
 		const newComment = await Comment.create(newCommentData);
-		
+
 		newComment.dataValues["username"] = req.session.username;
 		newComment.dataValues.updatedAt = DateTime.fromJSDate(
 			newComment.dataValues.updatedAt
@@ -35,7 +35,7 @@ router.post("/:post_id", async (req, res) => {
 		res.status(201).json(newComment).send();
 	} catch (err) {
 		console.error(err);
-		res.status(500).send(`<h1>500 Internal Server Error</h1>`);
+		res.status(500).json(err).send("Internal Server Error");
 	}
 });
 
@@ -60,12 +60,12 @@ router.put("/:id", async (req, res) => {
 			}
 		} else {
 			res.status(400).send(
-				`<h1>400 Bad Request</h1><h3>Comment does not appear to exist. Create a comment using a Post Route instead.</h3>`
+				"Comment does not appear to exist. Create a comment using a Post Route instead."
 			);
 		}
 	} catch (err) {
 		console.error(err);
-		res.status(500).send(`<h1>500 Internal Server Error</h1>`);
+		res.status(500).json(err).send("Internal Server Error");
 	}
 });
 
@@ -76,12 +76,11 @@ router.delete("/:id", async (req, res) => {
 			await Comment.destroy({ where: { id: req.params.id } });
 			res.status(204).send();
 		} else {
-			res.status(404).send(`<h1>404 Data Not Found!</h1>
-	<h3>No comment found with specified data</h3>`);
+			res.status(404).send("No comment found with specified data");
 		}
 	} catch (err) {
 		console.error(err);
-		res.status(500).send(`<h1>500 Internal Server Error</h1>`);
+		res.status(500).json(err).send("Internal Server Error");
 	}
 });
 
