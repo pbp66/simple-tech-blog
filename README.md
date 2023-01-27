@@ -62,11 +62,15 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 
 ## Installation
 
-visit this link _URL_ to interact with the blog. No install is required
+The blog is live at this URL: [Tech Blog](https://vast-reef-41345.herokuapp.com/). To build and host your own, clone the repository and deploy it onto heroku or another server provider.
 
 ## Usage
 
-provide pics/of blog
+When visiting the blog, the home page will load with all available blog posts sorting by most recent first.
+
+![homepage](./assets/readme/01-simple-tech-blog-demo.png)
+
+If you try to navigate to the dashboard page, you will be redirect to the login/signup page with an alert banner displayed.
 
 ## License
 
