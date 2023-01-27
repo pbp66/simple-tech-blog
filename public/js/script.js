@@ -97,6 +97,7 @@ function getPostId(element) {
 }
 
 function makePostEditable(id) {
+	const postBackup = new Object();
 	const postTitle = document.getElementById(`post-title-${id}`);
 	const postText = document.getElementById(`post-text-${id}`);
 	const editablePost = createPostForm(
@@ -106,6 +107,7 @@ function makePostEditable(id) {
 	);
 
 	const postBody = document.getElementById(`post-body-${id}`);
+	Object.assign(postBackup, postBody.children);
 	postBody.innerHTML = "";
 	postBody.appendChild(editablePost);
 
@@ -114,10 +116,9 @@ function makePostEditable(id) {
 		document.getElementById("cancel-post-update");
 
 	submitPostUpdateForm.addEventListener("submit", submittedPostUpdateHandler);
-	cancelPostUpdateButton.addEventListener(
-		"click",
-		cancelledPostUpdateHandler
-	);
+	cancelPostUpdateButton.addEventListener("click", (event) => {
+		cancelledPostUpdateHandler(event, id, postBackup);
+	});
 }
 
 function createPostForm(postId, title, content) {
@@ -276,10 +277,15 @@ const submittedPostUpdateHandler = (event) => {
 		});
 };
 
-const cancelledPostUpdateHandler = (event) => {
+const cancelledPostUpdateHandler = (event, postId, postBackup) => {
 	event.preventDefault();
-	console.log("cancel updated post");
-	console.log(event.target);
+	const postBody = document.getElementById(`post-body-${postId}`);
+	postBody.innerHTML = "";
+	postBody.appendChild(postBackup[0]);
+	postBody.appendChild(postBackup[1]);
+
+	const collapsedButtons = document.getElementById("update-post-collapse");
+	collapsedButtons.classList.add("show");
 };
 
 const posts = document.getElementsByClassName("post");
