@@ -2,7 +2,7 @@
 
 ## Description
 
-TODO
+A simple tech blog is an [express.js](https://expressjs.com/) server using [sequelize](https://sequelize.org/) to interface with a MySQL database. The end user has the ability to create an account, create posts, add comments, update posts, and delete posts. [Boostrap](https://getbootstrap.com/) provides the majority of the styles and transition features to enhance the user experience. Several api routes exist on the server that don't provide any current functionality, such as deleting comments.
 
 User Story:
 
@@ -95,6 +95,18 @@ To create a comment, click on the create comment button on a post in the dashboa
 If you click a post, it'll load on its own page, displaying all comments without a "view comments" button. Clicking "add comment" will add a comment to that post.
 
 ![single-post-view](./assets/readme/07-simple-tech-blog-demo.png)
+
+clicking on a post you created allows you to update or delete the post.
+
+![update-delete-post](./assets/readme/08-simple-tech-blog-demo.png)
+
+Clicking on the update button allows you to edit both the title and content if desired. Clicking cancel removes all current changes. Clicking save will save the updated content on the database and reload the page with the updated post.
+
+![update-delete-post](./assets/readme/09-simple-tech-blog-demo.png)
+
+Clicking on the delete button will prompt the user to confirm they wish to delete the post. Clicking Delete Post will delete the post. It cannot be recovered. Clicking cancel will cancel the delete operation without any ill affects. Clicking either button will dismiss the alert. Deleting a post will remove all associated comments as well.
+
+![update-delete-post](./assets/readme/10-simple-tech-blog-demo.png)
 
 ## License
 
