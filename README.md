@@ -88,6 +88,14 @@ To create a post, click on the create post button to display a form containing a
 
 ![create-post](./assets/readme/05-simple-tech-blog-demo.png)
 
+To create a comment, click on the create comment button on a post in the dashboard or home views. Clicking submit will save the comment and automatically append the comment to the end of the comment chain.
+
+![create-comment](./assets/readme/06-simple-tech-blog-demo.png)
+
+If you click a post, it'll load on its own page, displaying all comments without a "view comments" button. Clicking "add comment" will add a comment to that post.
+
+![single-post-view](./assets/readme/07-simple-tech-blog-demo.png)
+
 ## License
 
 ![License](https://img.shields.io/static/v1?label=license&message=MIT&color=brightgreen)
