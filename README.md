@@ -2,6 +2,8 @@
 
 ## Description
 
+TODO
+
 User Story:
 
 ```
@@ -71,6 +73,14 @@ When visiting the blog, the home page will load with all available blog posts so
 ![homepage](./assets/readme/01-simple-tech-blog-demo.png)
 
 If you try to navigate to the dashboard page, you will be redirect to the login/signup page with an alert banner displayed.
+
+![login-alert](./assets/readme/02-simple-tech-blog-demo.png)
+
+On the login page, you will have option to either log in or sign up. For signing up, if you submit a username that already exists in the system, you will be unable to sign up and the site will display an alert. A successful sign-in or login will redirect you back to the homepage.
+
+![]()
+
+Clicking on the dasboard link while logged in will take you to the dashboard page. If you have content to display, the dashboard will load all of your posts and comments. Otherwise, it'll display a banner suggesting you to create a post.
 
 ## License
 
