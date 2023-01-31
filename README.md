@@ -2,7 +2,7 @@
 
 ## Description
 
-A simple tech blog is a [express.js](https://expressjs.com/) server using [sequelize](https://sequelize.org/) to interface with a MySQL database. The end user has the ability to create an account, create posts, add comments, update posts, and delete posts.
+A simple tech blog is an [express.js](https://expressjs.com/) server using [sequelize](https://sequelize.org/) to interface with a MySQL database. The end user has the ability to create an account, create posts, add comments, update posts, and delete posts. [Boostrap](https://getbootstrap.com/) provides the majority of the styles and transition features to enhance the user experience. Several api routes exist on the server that don't provide any current functionality, such as deleting comments.
 
 User Story:
 
