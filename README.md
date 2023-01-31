@@ -78,9 +78,15 @@ If you try to navigate to the dashboard page, you will be redirect to the login/
 
 On the login page, you will have option to either log in or sign up. For signing up, if you submit a username that already exists in the system, you will be unable to sign up and the site will display an alert. A successful sign-in or login will redirect you back to the homepage.
 
-![]()
+![failed-to-login-or-signup](./assets/readme/03-simple-tech-blog-demo.png)
 
-Clicking on the dasboard link while logged in will take you to the dashboard page. If you have content to display, the dashboard will load all of your posts and comments. Otherwise, it'll display a banner suggesting you to create a post.
+Clicking on the dashboard link while logged in will take you to the dashboard page. If you have content to display, the dashboard will load all of your posts and comments. Otherwise, it'll display a banner suggesting you to create a post.
+
+![create-post-alert](./assets/readme/04-simple-tech-blog-demo.png)
+
+To create a post, click on the create post button to display a form containing a post title and post content. Once filled out, click submit to save the post. The page will reload and display the new post.
+
+![create-post](./assets/readme/05-simple-tech-blog-demo.png)
 
 ## License
 
